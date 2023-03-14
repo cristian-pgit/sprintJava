@@ -1,4 +1,4 @@
-package sprintgrupaloo;
+package sprint;
 
 public class Visitaterreno {
 	

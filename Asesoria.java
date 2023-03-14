@@ -1,4 +1,4 @@
-package SprintEmpresa;
+package sprint;
 
 public interface Asesoria {
 	

@@ -1,4 +1,4 @@
-package SprintEmpresa;
+package sprint;
 
 // Clase Usuario
 public class Usuario implements Asesoria {
@@ -15,10 +15,10 @@ public class Usuario implements Asesoria {
 	}
 	
 	//Constructor Usuario
-	public Usuario(String nUsuario, String fNacimiento,int rut) {
-		this.nUsuario=nUsuario;
-		this.fNacimiento=fNacimiento;
-		this.run=run;
+	public Usuario(String nUsuario, String fNacimiento,int run) {
+		this.nUsuario = nUsuario;
+		this.fNacimiento = fNacimiento;
+		this.run = run;
 	}
 	
 
@@ -70,7 +70,16 @@ public class Usuario implements Asesoria {
 	
 	@Override
 	public String toString() {
-		return "Usuario = " + nUsuario + "\nFNacimiento=" + fNacimiento + "\nRun=" + run ;
+		return "Usuario: " + nUsuario + 
+				"\nFecha de Nacimiento: " + fNacimiento + 
+				"\nRun: " + run ;
+	}
+	@Override
+	public void analizarUsuario() {
+		System.out.println("Usuario: " + nUsuario + 
+				"\nFecha de Nacimiento: " + fNacimiento + 
+				"\nRun: " + run );
+		
 	}
 	
 }

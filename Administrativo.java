@@ -1,4 +1,4 @@
-package SprintEmpresa;
+package sprint;
 
 //Clase Adrminisitrativo que extiende de Usuario
 

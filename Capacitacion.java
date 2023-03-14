@@ -1,5 +1,5 @@
-package sprintgrupaloo;
-import java.util.Scanner;
+package sprint;
+
 
 public class Capacitacion {
 	 private int  id_Capa;

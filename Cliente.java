@@ -1,4 +1,4 @@
-package SprintEmpresa;
+package sprint;
 
 public class Cliente extends Usuario {
 	//Declaracion de variables, atributos de Usuario
@@ -173,9 +173,30 @@ public class Cliente extends Usuario {
 	@Override
 	public void analizarUsuario() {
 		super.analizarUsuario();
-		System.out.println( "Cliente [rut=" + rut + ", nombres=" + nombres + ", apellidos=" + apellidos + ", telefono=" + telefono
-				+ ", afp=" + afp + ", sds=" + sds + ", direccion=" + direccion + ", comuna=" + comuna + ", edad=" + edad
-				+ "]");
+		System.out.println(toString());
+	}
+
+	@Override
+	public String toString() {
+		return "Rut Cliente: " + rut + "\nNombre Completo" + obtenerNombre() + 
+				"\nTelefono: " + telefono + 
+				"\n AFP: " + afp + 
+				"\nSistema de Salud: " + sds + 
+				"\nDireccion: " + direccion + 
+				"\nComuna: " + comuna + 
+				"\nEdad: " + edad;
+	}
+	
+	public String SS() {
+		if (sds == 1) {
+			return "Fonasa";
+		} else {
+			return "Isapre";
+		}
+	}
+	
+	public String obtenerNombre() {
+		return getNombres()+" "+getApellidos();
 	}
 	
 
