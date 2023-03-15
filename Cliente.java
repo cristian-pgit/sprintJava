@@ -173,7 +173,7 @@ public class Cliente extends Usuario {
 	@Override
 	public void analizarUsuario() {
 		super.analizarUsuario();
-		System.out.println(toString());
+		System.out.println("\nDireccion: "+direccion+"\nComuna: "+comuna);
 	}
 
 	@Override
@@ -187,7 +187,7 @@ public class Cliente extends Usuario {
 				"\nEdad: " + edad;
 	}
 	
-	public String SS() {
+	public String obtenerSistemaSalud() {
 		if (sds == 1) {
 			return "Fonasa";
 		} else {
@@ -196,7 +196,7 @@ public class Cliente extends Usuario {
 	}
 	
 	public String obtenerNombre() {
-		return getNombres()+" "+getApellidos();
+		return nombres+" "+apellidos;
 	}
 	
 

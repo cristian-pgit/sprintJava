@@ -7,6 +7,7 @@ public class Principal {
 	static Scanner sc = new Scanner(System.in);
 	static Contenedor cont = new Contenedor();
 	
+	
 	public static void main (String[]Args) {
 		
 		boolean keepGoing = true;
@@ -38,6 +39,7 @@ public class Principal {
 					
 				case 4:
 					cont.crearCapacitacion();
+				
 					break;
 				case 5:
 					cont.eliminarUsuario();

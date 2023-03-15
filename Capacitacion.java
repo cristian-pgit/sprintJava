@@ -1,25 +1,30 @@
 package sprint;
 
 
+
 public class Capacitacion {
-	 private int  id_Capa;
-	 private String run;
-	 private String dia;
-	 private String hora;
-	 private String lugar;
-	 private String duracion;
-	 int cantAsist;
-	public int getId_Capa() {
-		return id_Capa;
+	private int idCapa;
+	private int rutC;
+	private String dia;
+	private String hora;
+	private String lugar;
+	private String duracion;
+	private int cantAsist;
+	
+
+
+	
+	public int getIdCapa() {
+		return idCapa;
 	}
-	public void setId_Capa(int id_Capa) {
-		this.id_Capa = id_Capa;
+	public void setIdCapa(int idCapa) {
+		this.idCapa = idCapa;
 	}
-	public String getRun() {
-		return run;
+	public int getRutC() {
+		return rutC;
 	}
-	public void setRun(String run) {
-		this.run = run;
+	public void setRun(int rutC) {
+		this.rutC = rutC;
 	}
 	public String getDia() {
 		return dia;
@@ -45,17 +50,28 @@ public class Capacitacion {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
+	
+	public int getCantAsist() {
+		return cantAsist;
+	}
+	public void setCantAsist(int cantAsist) {
+		this.cantAsist = cantAsist;
+	}
 	@Override
 	public String toString() {
-		return "Capacitacion [id_Capa=" + id_Capa + ", run=" + run + ", dia=" + dia + ", hora=" + hora + ", lugar="
-				+ lugar + ", duracion=" + duracion + ", cantAsist=" + cantAsist + "]";
+		return "Id Capacitacion: " + idCapa + "\nRun: " + rutC + "\nDia: " + dia + "\nHora: " + hora + "\nLugar: "
+				+ lugar + "\nDuracion: " + duracion + "\nCantidad de Asistentes: " + cantAsist;
 	}
-	
+
 	public Capacitacion () {
-		
+
 	}
 	public Capacitacion ( int idCapa, String run, String dia, String hora, String lugar, String duracion) {
-		
+
+	}
+	
+	public void mostrarDetalles() {
+		System.out.println("La Capacitacion sera en: "+lugar+" a las: "+hora+ " del día: "+dia+", y durara: "+duracion+" minutos");
 	}
 
 }

@@ -1,5 +1,10 @@
 package sprint;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+
 // Clase Usuario
 public class Usuario implements Asesoria {
 	
@@ -67,7 +72,15 @@ public class Usuario implements Asesoria {
 		this.run = run;
 	}
 	
-	
+	public void mostrarEdad() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaNac = LocalDate.parse(fNacimiento, formatter);
+        LocalDate fechaActual = LocalDate.now();
+        Period periodo = Period.between(fechaNac, fechaActual);
+        int edad = periodo.getYears();
+        System.out.println("La edad de " + nUsuario + " es: " + edad + " años.");
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario: " + nUsuario + 
@@ -77,7 +90,6 @@ public class Usuario implements Asesoria {
 	@Override
 	public void analizarUsuario() {
 		System.out.println("Usuario: " + nUsuario + 
-				"\nFecha de Nacimiento: " + fNacimiento + 
 				"\nRun: " + run );
 		
 	}

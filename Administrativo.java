@@ -9,7 +9,7 @@ public class Administrativo extends Usuario {
 	private int experiencia;
 	
 	//Constructor
-	public Administrativo(String nUsuario, String userName, String fNacimiento, int run, String area, int exPrevia) {
+	public Administrativo(String nUsuario, String userName, String fNacimiento, int run, String area, int experiencia) {
 		super(nUsuario, fNacimiento, run);
 		this.area = area;
 		this.experiencia = experiencia;
@@ -33,14 +33,8 @@ public class Administrativo extends Usuario {
 		this.experiencia = experiencia;
 	}
 	
-	
-	
-	
-	
-	
 	@Override
 	public void analizarUsuario() {
-		
 		super.analizarUsuario();
 		System.out.println("Área: "+area+
 				"\nAños de Experiencia Previa: "+experiencia);
