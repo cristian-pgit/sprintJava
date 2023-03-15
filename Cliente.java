@@ -1,5 +1,8 @@
 package sprint;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente extends Usuario {
 	//Declaracion de variables, atributos de Usuario
 	private int rut;
@@ -11,6 +14,8 @@ public class Cliente extends Usuario {
 	private String direccion;
 	private String comuna;
 	private int edad;
+	private List<Capacitacion> capas = new ArrayList<Capacitacion>();
+	private List<Accidente> acc = new ArrayList<Accidente>();
 	
 	//Constructor Cliente vacio
 	
@@ -199,6 +204,12 @@ public class Cliente extends Usuario {
 		return nombres+" "+apellidos;
 	}
 	
+	public void addCapa(Capacitacion c) {
+		capas.add(c);
+	}
 
+	public void addAcc(Accidente a) {
+		acc.add(a);
+	}
 	
 }

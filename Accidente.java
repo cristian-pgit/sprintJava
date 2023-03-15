@@ -6,7 +6,7 @@ public class Accidente {
 	
 	
       private int idAccid;
-      private String run ;
+      private int rutC ;
       private String dia;
       private String hora;
       private String lugar;
@@ -20,11 +20,11 @@ public class Accidente {
 	public void setidAccid(int idAccid) {
 		this.idAccid = idAccid;
 	}
-	public String getrun() {
-		return run;
+	public int getRutC() {
+		return rutC;
 	}
-	public void setrun(String run) {
-		run = run;
+	public void setRutC(int rutC) {
+		rutC = rutC;
 	}
 	public String getdia() {
 		return dia;
@@ -32,16 +32,16 @@ public class Accidente {
 	public void setdia(String dia) {
 		dia = dia;
 	}
-	public String gethora() {
+	public String getHora() {
 		return hora;
 	}
-	public void sethora(String hora) {
+	public void setHora(String hora) {
 		hora = hora;
 	}
-	public String getlugar() {
+	public String getLugar() {
 		return lugar;
 	}
-	public void setlugar(String lugar) {
+	public void setLugar(String lugar) {
 		lugar = lugar;
 	}
 	public String getOrigen() {
@@ -58,8 +58,13 @@ public class Accidente {
 	}
 	@Override
 	public String toString() {
-		return "Accidente [idAccid=" + idAccid + ", run=" + run + ", dia=" + dia + ", hora=" + hora + ", lugar=" + lugar
-				+ ", origen=" + origen + ", consec=" + consec + "]";
+		return "Id Accidente: " + idAccid + 
+				"\nRut Cliente: " + rutC + 
+				"\nDia: " + dia + 
+				"\nHora: " + hora + 
+				"\nLugar: " + lugar + 
+				"\nOrigen: " + origen + 
+				"\nConsecuencias: " + consec;
 	}
       
     public Accidente () {  
