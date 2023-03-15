@@ -6,9 +6,9 @@ public class Revision {
 	private int idTerreno;
 	private String nombre;
 	private String detalle;
-	private String estado;
-	
-	
+	private int estado;
+
+
 	public int getIdRevision() {
 		return idRevision;
 	}
@@ -30,28 +30,40 @@ public class Revision {
 	public String getDetalle() {
 		return detalle;
 	}
-	
+
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
 	}
-	public String getEstado() {
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 	@Override
 	public String toString() {
-		return "Revision [idRevision=" + idRevision + ", idTerreno=" + idTerreno + ", nombre=" + nombre + ", detalle="
-				+ detalle + ", estado=" + estado + "]";
+		return "Id Revision: " + idRevision + 
+				"\nId Visita a Terreno: " + idTerreno + 
+				"\nNombre de Revision: " + nombre + 
+				"\nDetalle: "+ detalle + 
+				"\nEstado: " + mosEstado();
 	}
 	public Revision () {
-	
+
+	}
+	public Revision (int idRevision, int idTerreno, String nombre, String detalle, String estado) {
+
+	}
+
+	public String mosEstado() {
+		if (estado == 1) {
+			return "Sin Problemas";
+		} else if (estado == 2) {
+			return "Con Observaciones";
+		} else {
+			return "No Aprueba";
+		}
+	}
 }
-    public Revision (int idRevision, int idTerreno, String nombre, String detalle, String estado) {
-    	
-    }
-}
-    	
-  
-    
+
+

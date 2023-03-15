@@ -1,13 +1,17 @@
 package sprint;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Visitaterreno {
 	
 	private int idTerreno;
-	private String run;
+	private int rutC;
 	private String dia;
 	private String hora;
 	private String lugar;
 	private String comentarios;
+	private List<Revision> revi = new ArrayList<Revision>();
 	
 	
 	public int getIdTerreno() {
@@ -16,11 +20,11 @@ public class Visitaterreno {
 	public void setIdTerreno(int idTerreno) {
 		this.idTerreno = idTerreno;
 	}
-	public String getRun() {
-		return run;
+	public int getRutC() {
+		return rutC;
 	}
-	public void setRun(String run) {
-		this.run = run;
+	public void setRutC(int rutC) {
+		this.rutC = rutC;
 	}
 	public String getDia() {
 		return dia;
@@ -48,7 +52,7 @@ public class Visitaterreno {
 	}
 	@Override
 	public String toString() {
-		return "Visitaterreno [idTerreno=" + idTerreno + ", run=" + run + ", dia=" + dia + ", hora=" + hora + ", lugar="
+		return "Visitaterreno [idTerreno=" + idTerreno + ", run=" + rutC + ", dia=" + dia + ", hora=" + hora + ", lugar="
 				+ lugar + ", comentarios=" + comentarios + "]";
 	}
 	
@@ -57,5 +61,8 @@ public class Visitaterreno {
 	public Visitaterreno (int idTerreno, String run, String dia, String  hora, String lugar, String comentarios ) {
 	}
 	
+	public void addRevi(Revision r) {
+		revi.add(r);
+	}
 
 }

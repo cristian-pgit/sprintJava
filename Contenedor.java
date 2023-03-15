@@ -14,7 +14,7 @@ public class Contenedor {
 	static List<Capacitacion> capas = new ArrayList<Capacitacion>();
 	
 	
-	public static void crearCliente() {
+	public static void crearCliente(Cliente cli, Accidente acc, Capacitacion cap) {
 		boolean crearCli = false;
 		while (crearCli == false) {
 			Cliente user = new Cliente();
@@ -43,7 +43,11 @@ public class Contenedor {
 			user.setComuna(com);
 			int edad = pedirEdad();
 			user.setEdad(edad);
-			hayCapacitaciones();
+			hayCapacitaciones(cli);
+			hayAccidente(acc);
+			Visitaterreno vis = new Visitaterreno();
+			crearVisita(vis);
+			addVisita(vis);
 			
 		}
 		
@@ -57,10 +61,9 @@ public class Contenedor {
 		
 	}
 	
-	public static void crearCapacitacion() {
+	public static void crearCapacitacion(Capacitacion capa) {
 		boolean creaCapa = false;
 		while (creaCapa == false) {
-			Capacitacion capa = new Capacitacion();
 			escribir("Bienvenido a la Creacion de Capacicationes.");
 			int id = pedirIdCapa();
 			capa.setIdCapa(id);
@@ -119,14 +122,23 @@ public class Contenedor {
 	}
 	
 	public static String fechaN() {
+		escribir("Ingrese Fecha de Nacimiento:");
 		return fDia()+"/"+fMes()+"/"+fAnio();
+	}
+	public static String fechaV() {
+		escribir("Ingrese Fecha de Visita:");
+		return fDia()+"/"+fMes()+"/"+vAnio();
+	}
+	public static String fechaA() {
+		escribir("Ingrese Dia del Accidente:");
+		return fDia()+"/"+fMes()+"/"+vAnio();
 	}
 	
 	public static String fDia() {
 		boolean fechaOk = false;
 		String fDia = "";
 		while(!fechaOk) {
-			escribir("Ingrese Dia de Nacimiento:");
+			escribir("Ingrese Dia:");
 			fDia = leer(sc);
 			if (fDia.matches("0[1-9]|[12][0-9]|3[01]")) {
 				escribir("Ingrese un dia de valido. De 01 a 31 (favor recuerde Febrero tiene hasta 28 o 29)");
@@ -140,7 +152,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fMes = "";
 		while(!fechaOk) {
-			escribir("Ingrese Mes de Nacimiento:");
+			escribir("Ingrese Mes:");
 			fMes = leer(sc);
 			if (fMes.matches("0[1-9]|1[0-2]")) {
 				escribir("Ingrese un mes Valido. De 01 a 12");
@@ -154,10 +166,24 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fAnio = "";
 		while(!fechaOk) {
-			escribir("Ingrese Dia de Nacimiento:");
+			escribir("Ingrese Año:");
 			fAnio = leer(sc);
 			if (fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
 				escribir("Ingrese un anio valido. Desde 1900 a 2100 .... no se aceptan vampiros, inmortales y gente del futuro");
+			} else {
+				fechaOk = true;
+			}	
+		}
+		return fAnio;
+	}
+	public static String vAnio() {
+		boolean fechaOk = false;
+		String fAnio = "";
+		while(!fechaOk) {
+			escribir("Ingrese Año:");
+			fAnio = leer(sc);
+			if (fAnio.matches("20[0-4][0-9]|2050")) {
+				escribir("Ingrese un anio valido. Desde 2000 a 2050. No habian registros antes del 2000, ni confiamos llegar mas alla del 2050");
 			} else {
 				fechaOk = true;
 			}	
@@ -309,14 +335,16 @@ public class Contenedor {
 		return edad;
 	}
 	
-	public static void hayCapacitaciones() {
+	public static void hayCapacitaciones(Cliente cli) {
 		boolean hayCap = false;
 		String resp = "";
 		while(!hayCap) {
 			escribir("Ingrese Desea ingresar una Capacitacion? (y/n)");
 			resp = leer(sc);
 			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
-				crearCapacitacion();
+				Capacitacion cap = new Capacitacion();
+				crearCapacitacion(cap);
+				cli.addCapa(cap);
 			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
 				hayCap = true;
 			} 
@@ -462,6 +490,268 @@ public class Contenedor {
 
 		}	
 		return cantA;
+	}
+	
+	public static void crearVisita(Visitaterreno vis) {
+		boolean visOk = false;
+		while(!visOk) {
+			escribir("Registrando Visita a Terreno");
+			int id = idVis();
+			vis.setIdTerreno(id);
+			int rut = pedirRutC();
+			vis.setRutC(rut);
+			String fevis = fechaV();
+			vis.setDia(fevis);
+			String hora = pedirHr()+":"+ pedirMin();
+			vis.setHora(hora);
+			String lug = pedirLugar();			
+			vis.setLugar(lug);
+			String comm = coment();
+			vis.setComentarios(comm);
+			Revision rev = new Revision();
+			crearRevision(rev);
+			vis.addRevi(rev);
+			addRevision(rev, vis);
+		}
+	}
+	
+	public static int idVis() {
+		boolean idOK = false;
+		int id = 0;
+		while (!idOK) {
+			escribir("Favor ingrese Id de Visita a Terreno:");
+			String entrada = leer(sc);
+			if(!entrada.matches("\\d+")) {
+				escribir("Debe solo contener numeros");
+			} else {
+				id = Integer.parseInt(entrada);
+				idOK = true;
+			}
+		}
+		return id;
+	}
+	
+	public static String coment() {
+		boolean comOK = false;
+		String comment = "";
+		while(!comOK) {
+			escribir("Ingrese Comentarios:");
+			comment = leer(sc);
+			if(comment.length()>100) {
+				escribir("Maximo 100 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		
+		return comment;	
+	}
+	public static String detalle() {
+		boolean comOK = false;
+		String comment = "";
+		while(!comOK) {
+			escribir("Ingrese Detalle:");
+			comment = leer(sc);
+			if(comment.length()>100) {
+				escribir("Maximo 100 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		
+		return comment;	
+	}
+	public static String origen() {
+		boolean comOK = false;
+		String comment = "";
+		while(!comOK) {
+			escribir("Ingrese Origen del Accidente:");
+			comment = leer(sc);
+			if(comment.length()>100) {
+				escribir("Maximo 100 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		
+		return comment;	
+	}
+	public static String consecuencia() {
+		boolean comOK = false;
+		String comment = "";
+		while(!comOK) {
+			escribir("Ingrese Consecuencias del Accidente:");
+			comment = leer(sc);
+			if(comment.length()>100) {
+				escribir("Maximo 100 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		
+		return comment;	
+	}
+	
+
+	public static void addVisita(Visitaterreno vis) {
+		boolean hayCap = false;
+		String resp = "";
+		while(!hayCap) {
+			escribir("Ingrese Desea ingresar otra Visita a Terreno? (y/n)");
+			resp = leer(sc);
+			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
+				crearVisita(vis);
+			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
+				hayCap = true;
+			} 
+		}	
+	}
+	
+	public static void crearRevision(Revision rev) {
+		boolean visOk = false;
+		while(!visOk) {
+			escribir("Registrando Revision");
+			int id = idRev();
+			rev.setIdRevision(id);
+			int idv = idVis();
+			rev.setIdTerreno(idv);
+			String nomR = nomRev();
+			rev.setNombre(nomR);
+			String detalle = detalle();
+			rev.setDetalle(detalle);
+			int estado = pedirEst();
+			rev.setEstado(estado);
+		}
+	}
+	
+	public static int idRev() {
+		boolean idOK = false;
+		int id = 0;
+		while (!idOK) {
+			escribir("Favor ingrese Id de Revision:");
+			String entrada = leer(sc);
+			if(!entrada.matches("\\d+")) {
+				escribir("Debe solo contener numeros");
+			} else {
+				id = Integer.parseInt(entrada);
+				idOK = true;
+			}
+		}
+		return id;
+	}
+	
+	public static String nomRev() {
+		boolean comOK = false;
+		String nomR = "";
+		while(!comOK) {
+			escribir("Ingrese Nombre de la Revision:");
+			nomR = leer(sc);
+			if(nomR.length()>10 && nomR.length()>50) {
+				escribir("Minimo 10 caracteres, Maximo 50 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		return nomR;	
+	}
+	
+	public static int pedirEst() {
+		boolean ssOk = false;
+		int estado = 0;
+		while (!ssOk) {
+			escribir("Favor ingrese Estado de Revision (1.- Sin Problemas / 2.- Con Observaciones / 3.- No Aprueba):");
+			String entrada = leer(sc);
+			if(!entrada.matches("[1-3]")) {
+				escribir("Solo 1, 2 o 3");
+			} else {
+	            estado = Integer.parseInt(entrada);
+	            ssOk = true;
+	        }
+		}
+		return estado;
+	}
+	
+	public static void addRevision(Revision rev, Visitaterreno vis) {
+		boolean hayCap = false;
+		String resp = "";
+		while(!hayCap) {
+			escribir("Ingrese Desea ingresar otra Revision? (y/n)");
+			resp = leer(sc);
+			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
+				crearRevision(rev);
+				vis.addRevi(rev);
+			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
+				hayCap = true;
+			} 
+		}
+	}
+	
+	public static void hayAccidente(Accidente acc) {
+		boolean hayAcc = false;
+		String resp = "";
+		while(!hayAcc) {
+			escribir("Desea ingresar un Accidente? (y/n)");
+			resp = leer(sc);
+			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
+				crearAccidente(acc);
+				
+			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
+				hayAcc = true;
+			} 
+		}	
+	}
+	
+	public static void crearAccidente(Accidente acc) {
+		boolean visOk = false;
+		while(!visOk) {
+			escribir("Registrando Revision");
+			int id = idAcc();
+			acc.setidAccid(id);
+			int rut = pedirRutC();
+			acc.setRutC(rut);
+			String dia = fechaA();
+			acc.setdia(dia);
+			String hora = pedirHr()+":"+pedirMin();
+			acc.setdia(hora);
+			String lug = pedirLugar();
+			acc.setLugar(lug);
+			String ori = origen();
+			acc.setorigen(ori);
+			String cons = consecuencia();
+			acc.setconsec(cons);
+			
+		}
+	}
+	
+	public static int idAcc() {
+		boolean idOK = false;
+		int id = 0;
+		while (!idOK) {
+			escribir("Favor ingrese Id de Accidente:");
+			String entrada = leer(sc);
+			if(!entrada.matches("\\d+")) {
+				escribir("Debe solo contener numeros");
+			} else {
+				id = Integer.parseInt(entrada);
+				idOK = true;
+			}
+		}
+		return id;
+	}
+	
+	public static void addAccidente(Accidente acc, Cliente cli) {
+		boolean hayCap = false;
+		String resp = "";
+		while(!hayCap) {
+			escribir("Ingrese Desea ingresar otra Revision? (y/n)");
+			resp = leer(sc);
+			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
+				crearAccidente(acc);
+				cli.addAcc(acc);
+			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
+				hayCap = true;
+			} 
+		}
 	}
 	
 	public static void escribir(String mensaje) {
