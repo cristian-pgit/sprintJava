@@ -6,7 +6,7 @@ public class Cliente extends Usuario {
 	private String nombres;
 	private String apellidos;
 	private int telefono;
-	private int afp;
+	private String afp;
 	private int sds;
 	private String direccion;
 	private String comuna;
@@ -20,7 +20,7 @@ public class Cliente extends Usuario {
 	
 	// Constructor Cliente con datos
 	
-	public Cliente (int rut, String nombres, String apellidos, int telefono, int afp, int sds, String direccion,
+	public Cliente (int rut, String nombres, String apellidos, int telefono, String afp, int sds, String direccion,
 			String comuna, int edad) {
 		this.rut=rut;
 		this.nombres=nombres;
@@ -94,14 +94,14 @@ public class Cliente extends Usuario {
 	/**
 	 * @return the afp
 	 */
-	public int getAfp() {
+	public String getAfp() {
 		return afp;
 	}
 
 	/**
 	 * @param afp the afp to set
 	 */
-	public void setAfp(int afp) {
+	public void setAfp(String afp) {
 		this.afp = afp;
 	}
 
