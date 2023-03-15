@@ -1,6 +1,6 @@
 package sprint;
 
-public class Profesional {
+public class Profesional extends Usuario{
 	
 	//Declaracion de variables, atributos de Usuario
 		private String tituloProfesional;
@@ -54,9 +54,9 @@ public class Profesional {
 			this.fechaIngreso = fechaIngreso;
 		}
 
-		
+		@Override
 		public void analizarUsuario() {
-			super.
+			super.analizarUsuario();
 			System.out.println("\nTitulo Profesional:" + tituloProfesional + 
 			"\nFecha de Ingreso: " + fechaIngreso );
 		}
