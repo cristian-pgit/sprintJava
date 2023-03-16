@@ -8,6 +8,11 @@ public class Administrativo extends Usuario {
 	private String area;
 	private int experiencia;
 	
+	//
+	public Administrativo() {
+		
+	}
+	
 	//Constructor
 	public Administrativo(String nUsuario, String userName, String fNacimiento, int run, String area, int experiencia) {
 		super(nUsuario, fNacimiento, run);
