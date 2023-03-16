@@ -25,8 +25,9 @@ public class Cliente extends Usuario {
 	
 	// Constructor Cliente con datos
 	
-	public Cliente (int rut, String nombres, String apellidos, int telefono, String afp, int sds, String direccion,
+	public Cliente (String uName, String fNacimiento, int run, int rut, String nombres, String apellidos, int telefono, String afp, int sds, String direccion,
 			String comuna, int edad) {
+		super(uName, fNacimiento, run);
 		this.rut=rut;
 		this.nombres=nombres;
 		this.apellidos=apellidos;

@@ -6,7 +6,7 @@ public class Principal {
 	
 	static Scanner sc = new Scanner(System.in);
 	static Contenedor cont = new Contenedor();
-	
+	static Cliente cli; static Capacitacion cap; static Accidente acc;
 	
 	public static void main (String[]Args) {
 		
@@ -27,7 +27,7 @@ public class Principal {
 				switch (opc) {
 				
 				case 1:
-					cont.crearCliente();
+					cont.crearCliente(cli, acc, cap);
 					break;
 				case 2:
 					cont.crearProfesional();
@@ -38,11 +38,12 @@ public class Principal {
 					break;
 					
 				case 4:
-					cont.crearCapacitacion();
+					Capacitacion cap = new Capacitacion();
+					cont.crearCapacitacion(cap);
 				
 					break;
 				case 5:
-					cont.eliminarUsuario();
+					cont.eliminarUsuario(cont.ase);
 					break;
 				case 6:
 					cont.mostrarUsuarios();

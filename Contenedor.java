@@ -10,55 +10,76 @@ public class Contenedor {
 	static Scanner sc = new Scanner(System.in);
 	
 	
-	List<Asesoria> ase = new ArrayList<Asesoria>();
+	static List<Asesoria> ase = new ArrayList<Asesoria>();
 	static List<Capacitacion> capas = new ArrayList<Capacitacion>();
 	
 	
 	public static void crearCliente(Cliente cli, Accidente acc, Capacitacion cap) {
-		boolean crearCli = false;
-		while (crearCli == false) {
-			Cliente user = new Cliente();
-			escribir("Bienvenido a la Creacion de Usuario - Cliente.");
-			String userN = pedirUserName();
-			user.setUsuario(userN);
-			String fecha = fechaN();
-			user.setfNacimiento(fecha);
-			int run = pedirRun();
-			user.setRun(run);
-			int rutc = pedirRutC();
-			user.setRut(rutc);
-			String nom = pedirNombres();
-			user.setNombres(nom);
-			String ape = pedirApellidos();
-			user.setApellidos(ape);
-			int fono = pedirFono();
-			user.setTelefono(fono);
-			String afp = pedirAfp();
-			user.setAfp(afp);
-			int sds = pedirSdS();
-			user.setSds(sds);
-			String dir = pedirDir();
-			user.setDireccion(dir);
-			String com = pedirCom();
-			user.setComuna(com);
-			int edad = pedirEdad();
-			user.setEdad(edad);
-			hayCapacitaciones(cli);
-			hayAccidente(acc);
-			Visitaterreno vis = new Visitaterreno();
-			crearVisita(vis);
-			addVisita(vis);
-			
-		}
-		
+
+		Cliente user = new Cliente();
+		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
+		String userN = pedirUserName();
+		user.setUsuario(userN);
+		String fecha = fechaN();
+		user.setfNacimiento(fecha);
+		int run = pedirRun();
+		user.setRun(run);
+		int rutc = pedirRutC();
+		user.setRut(rutc);
+		String nom = pedirNombres();
+		user.setNombres(nom);
+		String ape = pedirApellidos();
+		user.setApellidos(ape);
+		int fono = pedirFono();
+		user.setTelefono(fono);
+		String afp = pedirAfp();
+		user.setAfp(afp);
+		int sds = pedirSdS();
+		user.setSds(sds);
+		String dir = pedirDir();
+		user.setDireccion(dir);
+		String com = pedirCom();
+		user.setComuna(com);
+		int edad = pedirEdad();
+		user.setEdad(edad);
+		// Crear Capacitacion si de desea
+		Capacitacion capa = new Capacitacion();
+		hayCapacitaciones(cli);
+		//crear accidente si se desea
+		hayAccidente(acc);
+		//ingresar primera visita. Visita crea una Revision y preguntara si se desean mas revisiones
+		Visitaterreno vis = new Visitaterreno();
+		crearVisita(vis);
+		//preguntar si se desea agregar una nueva visita
+		addVisita(vis);
+		// anade el usuario creado a la lista de Asesoria,
+		ase.add(user);
+		//despliega mensaje indicando que el usuario se ha creado exitosamente.
+		escribir("Usuario Creado Exitosamente");
+
 	}
 	
 	public static void crearProfesional() {
+		Profesional user = new Profesional();
+		escribir("Bienvenido a la Creacion de Usuario - Profesional");
+		String userN = pedirUserName();
+		user.setUsuario(userN);
+		String fecha = fechaN();
+		user.setfNacimiento(fecha);
+		int run = pedirRun();
+		user.setRun(run);
 		
 	}
 	
 	public static void crearAdministrativo() {
-		
+		Administrativo user = new Administrativo();
+		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
+		String userN = pedirUserName();
+		user.setUsuario(userN);
+		String fecha = fechaN();
+		user.setfNacimiento(fecha);
+		int run = pedirRun();
+		user.setRun(run);
 	}
 	
 	public static void crearCapacitacion(Capacitacion capa) {
@@ -77,21 +98,110 @@ public class Contenedor {
 			capa.setCantAsist(pedirCant());
 			capas.add(capa);
 			creaCapa = true;
+			escribir("Capacitacion Creada Exitosamente");
 		}
 		
 		
 		
 	}
 	
-	public static void eliminarUsuario() {
-		
+	public static void eliminarUsuario(List<Asesoria> ase) {
+		Usuario usuario = buscarRun(ase);
+		if (usuario != null) {
+			boolean seguro = false;
+			while (!seguro) {
+				usuario.analizarUsuario();
+				escribir("Run: "+usuario.getRun());
+				escribir("Esta seguro que desea borrar este usuario? (y/n: ");
+				String ans = leer(sc);
+				if (ans.matches("[yYnN]") && ans.equalsIgnoreCase("y")) {
+					ase.remove(usuario);
+					escribir("Usuario Eliminado");
+					seguro = true;
+				} else if (ans.matches("[yYnN]") && ans.equalsIgnoreCase("n")) {
+					seguro = true;
+				} 
+					
+			}
+			
+		} else {
+		    escribir("Usuario no encontrado, o no existe");
+		}
 	}
 	
 	public static void mostrarUsuarios() {
-		
+		int i = 1;
+		for (Asesoria a:ase) {
+			System.out.println(ANSI_WHITE+"----------------- Usuario: "+i+" -----------------------"+ANSI_RESET);
+			a.analizarUsuario();
+			i++;
+			System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+		}
 	}
 	
 	public static void listarXTipo() {
+		
+		boolean elige = false;
+		while(!elige) {
+			try {
+				escribir("Que tipo desea ver?\n"+"\t1.- Clientes\n"+"\t2.- Profesionales\n"+"\t3.- Administrativos\n");
+				String opcion = "";
+				opcion = sc.nextLine();
+				if(!opcion.matches("[1-3]")) {
+					System.out.println("Opcion Equivocada");
+				}
+				int opc = Integer.parseInt(opcion);
+				
+				switch (opc) {
+				
+				case 1:
+					int i = 1;
+					for (Asesoria a:ase) {
+						if(a instanceof Cliente) {
+							System.out.println(ANSI_WHITE+"----------------- Cliente: "+i+" -----------------------"+ANSI_RESET);
+							a.analizarUsuario();
+							i++;
+							System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+						} else {
+							escribir("No Hay usuarios de este tipo");
+						}
+					}
+					elige = true;
+					break;
+				case 2:
+					i = 1;
+					for (Asesoria a:ase) {
+						if(a instanceof Profesional) {
+							System.out.println(ANSI_WHITE+"----------------- Profesional: "+i+" -----------------------"+ANSI_RESET);
+							a.analizarUsuario();
+							i++;
+							System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+						}else {
+							escribir("No Hay usuarios de este tipo");
+						}
+					}
+					elige = true;
+					break;
+					
+				case 3:
+					i = 1;
+					for (Asesoria a:ase) {
+						if(a instanceof Administrativo) {
+							System.out.println(ANSI_WHITE+"----------------- Administrativo: "+i+" -----------------------"+ANSI_RESET);
+							a.analizarUsuario();
+							i++;
+							System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+						}else {
+							escribir("No Hay usuarios de este tipo");
+						}
+					}
+					elige = true;
+					break;			
+				}	
+			} catch(Exception e) {
+				escribir("Opcion es de 1 a 3, sin caracteres o simbolos.");
+			}
+		}
 		
 	}
 	
@@ -105,6 +215,31 @@ public class Contenedor {
 		}
 		
 	}
+	
+	public static Usuario buscarRun(List<Asesoria> ase) {
+	    boolean runOk = false;
+	    Usuario usuario = null;
+	    while (!runOk) {
+	        System.out.print("Ingrese el Rut del usuario a buscar: ");
+	        String runs = leer(sc);
+	        if (runs.matches("^\\d{8}$")) {
+	            int run = Integer.parseInt(runs);
+	            for (Asesoria a : ase) {
+	                if (a instanceof Usuario && ((Usuario) a).getRun() == run) {
+	                    usuario = (Usuario) a; // encuentra el usuario con el run buscado
+	                    runOk = true;
+	                    break;
+	                }
+	            }
+	        } else {
+	            System.out.println("Ingreso invalido. Solo numeros, 8 digitos");
+	        }
+	    }
+	    return usuario; // retorna usuario buscado o retorna null
+	}
+	
+
+
 	
 	public static String pedirUserName() {
 		boolean uSnMOk = false;
@@ -140,7 +275,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Dia:");
 			fDia = leer(sc);
-			if (fDia.matches("0[1-9]|[12][0-9]|3[01]")) {
+			if (!fDia.matches("([1-9]|[1-2][0-9]|3[0-1])")) {
 				escribir("Ingrese un dia de valido. De 01 a 31 (favor recuerde Febrero tiene hasta 28 o 29)");
 			} else {
 				fechaOk = true;
@@ -154,7 +289,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Mes:");
 			fMes = leer(sc);
-			if (fMes.matches("0[1-9]|1[0-2]")) {
+			if (!fMes.matches("0[1-9]|1[0-2]")) {
 				escribir("Ingrese un mes Valido. De 01 a 12");
 			} else {
 				fechaOk = true;
@@ -168,7 +303,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Año:");
 			fAnio = leer(sc);
-			if (fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
+			if (!fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
 				escribir("Ingrese un anio valido. Desde 1900 a 2100 .... no se aceptan vampiros, inmortales y gente del futuro");
 			} else {
 				fechaOk = true;
@@ -182,7 +317,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Año:");
 			fAnio = leer(sc);
-			if (fAnio.matches("20[0-4][0-9]|2050")) {
+			if (!fAnio.matches("20[0-4][0-9]|2050")) {
 				escribir("Ingrese un anio valido. Desde 2000 a 2050. No habian registros antes del 2000, ni confiamos llegar mas alla del 2050");
 			} else {
 				fechaOk = true;
@@ -228,7 +363,7 @@ public class Contenedor {
 		boolean uSnMOk = false;
 		String lNames = "";
 		while(!uSnMOk) {
-			escribir("Ingrese Nombres:");
+			escribir("Ingrese Apellidos:");
 			lNames = leer(sc);
 			if (lNames.length()<5 && lNames.length()<31) {
 				escribir("Apellidos debe tener al menos 5 caracteres. Y un maximo de 30");
@@ -308,10 +443,10 @@ public class Contenedor {
 		boolean comOk = false;
 		String com = "";
 		while(!comOk) {
-			escribir("Ingrese Lugar:");
+			escribir("Ingrese Comuna:");
 			com = leer(sc);
 			if (com.length()>50) {
-				escribir("Direccion tiene un maximo de 50 caracteres");
+				escribir("Comuna tiene un maximo de 50 caracteres");
 			} else {
 				comOk = true;
 			}
@@ -336,20 +471,22 @@ public class Contenedor {
 	}
 	
 	public static void hayCapacitaciones(Cliente cli) {
-		boolean hayCap = false;
-		String resp = "";
-		while(!hayCap) {
-			escribir("Ingrese Desea ingresar una Capacitacion? (y/n)");
-			resp = leer(sc);
-			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
-				Capacitacion cap = new Capacitacion();
-				crearCapacitacion(cap);
-				cli.addCapa(cap);
-			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
-				hayCap = true;
-			} 
-		}	
+	    boolean hayCap = true;
+	    while (hayCap) {
+	        escribir("¿Desea ingresar una Capacitacion? (y/n)");
+	        String resp = leer(sc);
+	        if (resp.equalsIgnoreCase("y")) {
+	            Capacitacion cap = new Capacitacion();
+	            crearCapacitacion(cap);
+	            cli.addCapa(cap);
+	        } else if (resp.equalsIgnoreCase("n")) {
+	            hayCap = false;
+	        } else {
+	            escribir("Respuesta inválida. Ingrese 'y' para sí o 'n' para no.");
+	        }
+	    }
 	}
+
 	
 	public static int pedirIdCapa() {
 		boolean idOk = false;
@@ -512,6 +649,8 @@ public class Contenedor {
 			crearRevision(rev);
 			vis.addRevi(rev);
 			addRevision(rev, vis);
+			visOk = true;
+			escribir("Visita Creada Exitosamente");
 		}
 	}
 	
@@ -592,6 +731,38 @@ public class Contenedor {
 		return comment;	
 	}
 	
+	public static String pedirTitulo() {
+		boolean comOK = false;
+		String titulo = "";
+		while(!comOK) {
+			escribir("Ingrese Consecuencias del Accidente:");
+			titulo = leer(sc);
+			if(titulo.length()<10 && titulo.length()>50) {
+				escribir("Minimo 10, Maximo 50 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		
+		return titulo;	
+	}
+	
+	public static String ExpP() {
+		boolean comOK = false;
+		String exp = "";
+		while(!comOK) {
+			escribir("Ingrese Experiencia Previa:");
+			exp = leer(sc);
+			if(exp.length()>100) {
+				escribir("Maximo 100 caracteres");
+			} else {
+				comOK = true;
+			}
+		}
+		
+		return exp;	
+	}
+	
 
 	public static void addVisita(Visitaterreno vis) {
 		boolean hayCap = false;
@@ -621,6 +792,8 @@ public class Contenedor {
 			rev.setDetalle(detalle);
 			int estado = pedirEst();
 			rev.setEstado(estado);
+			visOk = true;
+			escribir("Visita Creada Exitosamente");
 		}
 	}
 	
