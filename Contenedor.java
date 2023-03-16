@@ -68,7 +68,11 @@ public class Contenedor {
 		user.setfNacimiento(fecha);
 		int run = pedirRun();
 		user.setRun(run);
-		
+		String titulo = pedirTitulo();
+		user.setTituloProfesional(titulo);
+		String fechaI = fechaI();
+		user.setFechaIngreso(fechaI);
+		escribir("Usuario Creado Exitosamente");
 	}
 	
 	public static void crearAdministrativo() {
@@ -80,6 +84,11 @@ public class Contenedor {
 		user.setfNacimiento(fecha);
 		int run = pedirRun();
 		user.setRun(run);
+		String area = pedirArea();
+		user.setArea(area);
+		String exp = expPre();
+		user.setExPrevia(run);
+		escribir("Usuario Creado Exitosamente");
 	}
 	
 	public static void crearCapacitacion(Capacitacion capa) {
@@ -99,10 +108,7 @@ public class Contenedor {
 			capas.add(capa);
 			creaCapa = true;
 			escribir("Capacitacion Creada Exitosamente");
-		}
-		
-		
-		
+		}		
 	}
 	
 	public static void eliminarUsuario(List<Asesoria> ase) {
@@ -121,7 +127,6 @@ public class Contenedor {
 				} else if (ans.matches("[yYnN]") && ans.equalsIgnoreCase("n")) {
 					seguro = true;
 				} 
-					
 			}
 			
 		} else {
@@ -268,6 +273,10 @@ public class Contenedor {
 		escribir("Ingrese Dia del Accidente:");
 		return fDia()+"/"+fMes()+"/"+vAnio();
 	}
+	public static String fechaI() {
+		escribir("Ingrese Fecha de Ingreso:");
+		return fDia()+"/"+fMes()+"/"+vAnio();
+	}
 	
 	public static String fDia() {
 		boolean fechaOk = false;
@@ -325,6 +334,8 @@ public class Contenedor {
 		}
 		return fAnio;
 	}
+	
+	
 	
 	public static int pedirRun() {
 		boolean rutOk = false;
@@ -735,7 +746,7 @@ public class Contenedor {
 		boolean comOK = false;
 		String titulo = "";
 		while(!comOK) {
-			escribir("Ingrese Consecuencias del Accidente:");
+			escribir("Ingrese Titulo del Profesional:");
 			titulo = leer(sc);
 			if(titulo.length()<10 && titulo.length()>50) {
 				escribir("Minimo 10, Maximo 50 caracteres");
@@ -747,7 +758,22 @@ public class Contenedor {
 		return titulo;	
 	}
 	
-	public static String ExpP() {
+	public static String pedirArea() {
+		boolean uSnMOk = false;
+		String names = "";
+		while(!uSnMOk) {
+			escribir("Ingrese Area:");
+			names = leer(sc);
+			if (names.length()<5 && names.length()<31) {
+				escribir("Area debe tener al menos 5 caracteres. Y un maximo de 30");
+			} else {
+				uSnMOk = true;
+			}	
+		}
+		return names;
+	}
+	
+	public static String expPre() {
 		boolean comOK = false;
 		String exp = "";
 		while(!comOK) {
