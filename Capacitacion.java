@@ -71,7 +71,12 @@ public class Capacitacion {
 	}
 	
 	public void mostrarDetalles() {
-		System.out.println("La Capacitacion sera en: "+lugar+" a las: "+hora+ " del día: "+dia+", y durara: "+duracion+" minutos");
+		System.out.println(ANSI_GREEN+"La Capacitacion sera en: "+lugar+" a las: "+hora+ " del día: "+dia+", y durara: "+duracion+" minutos"+ANSI_RESET);
 	}
 
+	
+	/** The Constant ANSI_GREEN. */
+	public static final String ANSI_GREEN = "\u001B[32m";
+	/** The Constant ANSI_RESET. */
+	public static final String ANSI_RESET = "\u001B[0m";
 }

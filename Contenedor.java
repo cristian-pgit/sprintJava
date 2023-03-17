@@ -24,7 +24,7 @@ public class Contenedor {
 		cli.setfNacimiento(fecha);
 		int run = pedirRun();
 		cli.setRun(run);
-		int rutc = pedirRutC();
+		int rutc = pedirRutCIni();
 		cli.setRut(rutc);
 		String nom = pedirNombres();
 		cli.setNombres(nom);
@@ -42,20 +42,21 @@ public class Contenedor {
 		cli.setComuna(com);
 		int edad = pedirEdad();
 		cli.setEdad(edad);
+		// anade el usuario creado a la lista de Asesoria,
+		ase.add(cli);
 		// Crear Capacitacion si de desea
-		Capacitacion capa = new Capacitacion();
-		hayCapacitaciones(cli, capas);
+		hayCapacitaciones(cli, capas, cap);
 		//crear accidente si se desea
-		hayAccidente(acc);
+		hayAccidente();
 		//ingresar primera visita. Visita crea una Revision y preguntara si se desean mas revisiones
 		Visitaterreno vis = new Visitaterreno();
 		crearVisita(vis);
 		//preguntar si se desea agregar una nueva visita
 		addVisita(vis);
-		// anade el usuario creado a la lista de Asesoria,
-		ase.add(cli);
+	//	// anade el usuario creado a la lista de Asesoria,
+	//	ase.add(cli);
 		//despliega mensaje indicando que el usuario se ha creado exitosamente.
-		escribir("Usuario Creado Exitosamente");
+		escribir(ANSI_CYAN+"Usuario Creado Exitosamente"+ANSI_RESET);
 
 	}
 	
@@ -74,7 +75,7 @@ public class Contenedor {
 		user.setFechaIngreso(fechaI);
 		// anade el usuario creado a la lista de Asesoria,
 		ase.add(user);
-		escribir("Usuario Creado Exitosamente");
+		escribir(ANSI_CYAN+"Usuario Creado Exitosamente"+ANSI_RESET);
 	}
 	
 	public static void crearAdministrativo() {
@@ -92,12 +93,13 @@ public class Contenedor {
 		adm.setExPrevia(exp);
 		// anade el usuario creado a la lista de Asesoria,
 		ase.add(adm);
-		escribir("Usuario Creado Exitosamente");
+		escribir(ANSI_CYAN+"Usuario Creado Exitosamente"+ANSI_RESET);
 	}
 	
-	public static void crearCapacitacion(Capacitacion capa) {
+	public static void crearCapacitacion() {
 		boolean creaCapa = false;
 		while (creaCapa == false) {
+			Capacitacion capa = new Capacitacion();
 			escribir("Bienvenido a la Creacion de Capacicationes.");
 			int id = pedirIdCapa();
 			capa.setIdCapa(id);
@@ -111,7 +113,8 @@ public class Contenedor {
 			capa.setCantAsist(pedirCant());
 			capas.add(capa);
 			creaCapa = true;
-			escribir("Capacitacion Creada Exitosamente");
+			escribir(ANSI_BLUE+"Capacitacion Creada Exitosamente"+ANSI_RESET);
+			capa.mostrarDetalles();
 		}		
 	}
 	
@@ -256,7 +259,7 @@ public class Contenedor {
 		while(!uSnMOk) {
 			escribir("Ingrese Nombre de Usuario:");
 			userName = leer(sc);
-			if (userName.length()<10 && userName.length()<51) {
+			if (userName.length()<10 || userName.length()>50) {
 				escribir("Nombre de Usuario debe tener al menos 10 caracteres. Y un maximo de 50");
 			} else {
 				uSnMOk = true;
@@ -345,7 +348,7 @@ public class Contenedor {
 		boolean rutOk = false;
 		int rutu = 0;
 		while(!rutOk) {
-			escribir("Favor ingrese Run Usuario:");
+			escribir("Favor ingrese Run Usuario (no lleva puntos, guion ni digito):");
 			String rut = leer(sc);
 			if(rut.isEmpty()) {
 				escribir("Rut Cliente es Obligatorio, no puede estar Vacio");
@@ -366,7 +369,7 @@ public class Contenedor {
 		while(!uSnMOk) {
 			escribir("Ingrese Nombres:");
 			names = leer(sc);
-			if (names.length()<5 && names.length()<31) {
+			if (names.length()<5 || names.length()>30) {
 				escribir("Nombres debe tener al menos 5 caracteres. Y un maximo de 30");
 			} else {
 				uSnMOk = true;
@@ -380,7 +383,7 @@ public class Contenedor {
 		while(!uSnMOk) {
 			escribir("Ingrese Apellidos:");
 			lNames = leer(sc);
-			if (lNames.length()<5 && lNames.length()<31) {
+			if (lNames.length()<5 || lNames.length()>30) {
 				escribir("Apellidos debe tener al menos 5 caracteres. Y un maximo de 30");
 			} else {
 				uSnMOk = true;
@@ -485,14 +488,13 @@ public class Contenedor {
 		return edad;
 	}
 	
-	public static void hayCapacitaciones(Cliente cli, List<Capacitacion> capas) {
+	public static void hayCapacitaciones(Cliente cli, List<Capacitacion> capas, Capacitacion cap) {
 	    boolean hayCap = true;
 	    while (hayCap) {
 	        escribir("¿Desea ingresar una Capacitacion? (y/n)");
 	        String resp = leer(sc);
 	        if (resp.equalsIgnoreCase("y")) {
-	            Capacitacion cap = new Capacitacion();
-	            crearCapacitacion(cap);
+	            crearCapacitacion();
 	            cli.addCapa(cap);
 	            capas.add(cap);
 	        } else if (resp.equalsIgnoreCase("n")) {
@@ -524,7 +526,26 @@ public class Contenedor {
 		boolean rutOk = false;
 		int rutc = 0;
 		while(!rutOk) {
-			escribir("Favor ingrese RUT Cliente:");
+			escribir("Favor ingrese RUT Cliente (no lleva puntos, guion ni digito):");
+			showRutExistentes();
+			String rut = leer(sc);
+			if(rut.isEmpty()) {
+				escribir("Rut Cliente es Obligatorio, no puede estar Vacio");
+			}
+			if(!rut.matches("^\\d{8}$")) {
+				escribir("Rut Incorrecto. 8 digitos");
+			} else {
+				rutc = Integer.parseInt(rut);
+				rutOk = true;
+			}
+		}
+		return rutc;
+	}
+	public static int pedirRutCIni() {
+		boolean rutOk = false;
+		int rutc = 0;
+		while(!rutOk) {
+			escribir("Favor ingrese RUT Cliente (no lleva puntos, guion ni digito):");
 			String rut = leer(sc);
 			if(rut.isEmpty()) {
 				escribir("Rut Cliente es Obligatorio, no puede estar Vacio");
@@ -566,7 +587,7 @@ public class Contenedor {
 		boolean hrOk = false;
 		String hr = "";
 		while(!hrOk) {
-			escribir("Ingrese Hora de la Capacitacion."+"\nIngrese Hora (de 00 a 23):");
+			escribir("Ingrese Hora (de 00 a 23):");
 			hr = leer(sc);
 			if (!hr.matches("^([0-1][0-9]|2[0-3])$")) {
 				escribir("Debe ingresar desde 00 a 23");
@@ -891,13 +912,14 @@ public class Contenedor {
 		}
 	}
 	
-	public static void hayAccidente(Accidente acc) {
+	public static void hayAccidente() {
 		boolean hayAcc = false;
 		String resp = "";
 		while(!hayAcc) {
 			escribir("Desea ingresar un Accidente? (y/n)");
 			resp = leer(sc);
 			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
+				Accidente acc = new Accidente();
 				crearAccidente(acc);
 				
 			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
@@ -909,13 +931,14 @@ public class Contenedor {
 	public static void crearAccidente(Accidente acc) {
 		boolean visOk = false;
 		while(!visOk) {
-			escribir("Registrando Revision");
+			escribir("Registrando Accidente");
 			int id = idAcc();
 			acc.setidAccid(id);
 			int rut = pedirRutC();
 			acc.setRutC(rut);
 			String dia = fechaA();
 			acc.setdia(dia);
+			escribir("Ingrese la Hora del Accidente");
 			String hora = pedirHr()+":"+pedirMin();
 			acc.setdia(hora);
 			String lug = pedirLugar();
@@ -944,13 +967,14 @@ public class Contenedor {
 		return id;
 	}
 	
-	public static void addAccidente(Accidente acc, Cliente cli) {
+	public static void addAccidente(Cliente cli) {
 		boolean hayCap = false;
 		String resp = "";
 		while(!hayCap) {
-			escribir("Ingrese Desea ingresar otra Revision? (y/n)");
+			escribir("Ingrese Desea ingresar otro Accidente? (y/n)");
 			resp = leer(sc);
 			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
+				Accidente acc = new Accidente();
 				crearAccidente(acc);
 				cli.addAcc(acc);
 			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
@@ -958,6 +982,18 @@ public class Contenedor {
 			} 
 		}
 	}
+	
+	
+	public static void showRutExistentes() {
+	    System.out.println(ANSI_WHITE+"----------------- Ruts existentes -----------------------"+ANSI_RESET);
+	    for (Asesoria a : ase) {
+	        if (a instanceof Cliente) {
+	            System.out.println(((Cliente) a).obtenerNombre()+" RUT: "+ ((Cliente) a).getRut());
+	        }
+	    }
+	    System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+	}
+
 	
 	public static void escribir(String mensaje) {
 		System.out.println(mensaje);

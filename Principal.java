@@ -41,7 +41,7 @@ public class Principal {
 					
 				case 4:
 					Capacitacion cap = new Capacitacion();
-					cont.crearCapacitacion(cap);
+					cont.crearCapacitacion();
 				
 					break;
 				case 5:
@@ -54,6 +54,7 @@ public class Principal {
 					cont.listarXTipo();
 					break;
 				case 8:
+					capas = cont.capas;
 					cont.listarCapacitaciones(capas);
 					break;
 				case 9:
