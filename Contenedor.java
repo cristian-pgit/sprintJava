@@ -96,7 +96,7 @@ public class Contenedor {
 		escribir(ANSI_CYAN+"Usuario Creado Exitosamente"+ANSI_RESET);
 	}
 	
-	public static void crearCapacitacion() {
+	public static void crearCapacitacion(List<Capacitacion> capas) {
 		boolean creaCapa = false;
 		while (creaCapa == false) {
 			Capacitacion capa = new Capacitacion();
@@ -494,7 +494,7 @@ public class Contenedor {
 	        escribir("Desea ingresar una Capacitacion? (y/n)");
 	        String resp = leer(sc);
 	        if (resp.equalsIgnoreCase("y")) {
-	            crearCapacitacion();
+	            crearCapacitacion(capas);
 	            cli.addCapa(cap);
 	            capas.add(cap);
 	        } else if (resp.equalsIgnoreCase("n")) {

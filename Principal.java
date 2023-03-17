@@ -41,7 +41,7 @@ public class Principal {
 					
 				case 4:
 					Capacitacion cap = new Capacitacion();
-					cont.crearCapacitacion();
+					cont.crearCapacitacion(cont.capas);
 				
 					break;
 				case 5:
