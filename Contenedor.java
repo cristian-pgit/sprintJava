@@ -14,37 +14,37 @@ public class Contenedor {
 	static List<Capacitacion> capas = new ArrayList<Capacitacion>();
 	
 	
-	public static void crearCliente(Cliente cli, Accidente acc, Capacitacion cap) {
+	public static void crearCliente(Accidente acc, Capacitacion cap) {
 
-		Cliente user = new Cliente();
+		Cliente cli = new Cliente();
 		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
 		String userN = pedirUserName();
-		user.setUsuario(userN);
+		cli.setUsuario(userN);
 		String fecha = fechaN();
-		user.setfNacimiento(fecha);
+		cli.setfNacimiento(fecha);
 		int run = pedirRun();
-		user.setRun(run);
+		cli.setRun(run);
 		int rutc = pedirRutC();
-		user.setRut(rutc);
+		cli.setRut(rutc);
 		String nom = pedirNombres();
-		user.setNombres(nom);
+		cli.setNombres(nom);
 		String ape = pedirApellidos();
-		user.setApellidos(ape);
+		cli.setApellidos(ape);
 		int fono = pedirFono();
-		user.setTelefono(fono);
+		cli.setTelefono(fono);
 		String afp = pedirAfp();
-		user.setAfp(afp);
+		cli.setAfp(afp);
 		int sds = pedirSdS();
-		user.setSds(sds);
+		cli.setSds(sds);
 		String dir = pedirDir();
-		user.setDireccion(dir);
+		cli.setDireccion(dir);
 		String com = pedirCom();
-		user.setComuna(com);
+		cli.setComuna(com);
 		int edad = pedirEdad();
-		user.setEdad(edad);
+		cli.setEdad(edad);
 		// Crear Capacitacion si de desea
 		Capacitacion capa = new Capacitacion();
-		hayCapacitaciones(cli);
+		hayCapacitaciones(cli, capas);
 		//crear accidente si se desea
 		hayAccidente(acc);
 		//ingresar primera visita. Visita crea una Revision y preguntara si se desean mas revisiones
@@ -53,7 +53,7 @@ public class Contenedor {
 		//preguntar si se desea agregar una nueva visita
 		addVisita(vis);
 		// anade el usuario creado a la lista de Asesoria,
-		ase.add(user);
+		ase.add(cli);
 		//despliega mensaje indicando que el usuario se ha creado exitosamente.
 		escribir("Usuario Creado Exitosamente");
 
@@ -72,22 +72,26 @@ public class Contenedor {
 		user.setTituloProfesional(titulo);
 		String fechaI = fechaI();
 		user.setFechaIngreso(fechaI);
+		// anade el usuario creado a la lista de Asesoria,
+		ase.add(user);
 		escribir("Usuario Creado Exitosamente");
 	}
 	
 	public static void crearAdministrativo() {
-		Administrativo user = new Administrativo();
+		Administrativo adm = new Administrativo();
 		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
 		String userN = pedirUserName();
-		user.setUsuario(userN);
+		adm.setUsuario(userN);
 		String fecha = fechaN();
-		user.setfNacimiento(fecha);
+		adm.setfNacimiento(fecha);
 		int run = pedirRun();
-		user.setRun(run);
+		adm.setRun(run);
 		String area = pedirArea();
-		user.setArea(area);
-		String exp = expPre();
-		user.setExPrevia(run);
+		adm.setArea(area);
+		int exp = expPre();
+		adm.setExPrevia(exp);
+		// anade el usuario creado a la lista de Asesoria,
+		ase.add(adm);
 		escribir("Usuario Creado Exitosamente");
 	}
 	
@@ -210,7 +214,7 @@ public class Contenedor {
 		
 	}
 	
-	public static void listarCapacitaciones() {
+	public static void listarCapacitaciones(List<Capacitacion> capas) {
 		int i = 1;
 		for (Capacitacion c:capas) {
 			System.out.println(ANSI_WHITE+"----------------- Capacitacion: "+i+" -----------------------"+ANSI_RESET);
@@ -284,7 +288,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Dia:");
 			fDia = leer(sc);
-			if (!fDia.matches("([1-9]|[1-2][0-9]|3[0-1])")) {
+			if (!fDia.matches("^(0[1-9]|[1-2][0-9]|3[0-1])$")) {
 				escribir("Ingrese un dia de valido. De 01 a 31 (favor recuerde Febrero tiene hasta 28 o 29)");
 			} else {
 				fechaOk = true;
@@ -481,7 +485,7 @@ public class Contenedor {
 		return edad;
 	}
 	
-	public static void hayCapacitaciones(Cliente cli) {
+	public static void hayCapacitaciones(Cliente cli, List<Capacitacion> capas) {
 	    boolean hayCap = true;
 	    while (hayCap) {
 	        escribir("¿Desea ingresar una Capacitacion? (y/n)");
@@ -490,6 +494,7 @@ public class Contenedor {
 	            Capacitacion cap = new Capacitacion();
 	            crearCapacitacion(cap);
 	            cli.addCapa(cap);
+	            capas.add(cap);
 	        } else if (resp.equalsIgnoreCase("n")) {
 	            hayCap = false;
 	        } else {
@@ -773,15 +778,16 @@ public class Contenedor {
 		return names;
 	}
 	
-	public static String expPre() {
+	public static int expPre() {
 		boolean comOK = false;
-		String exp = "";
+		int exp = 0;
 		while(!comOK) {
 			escribir("Ingrese Experiencia Previa:");
-			exp = leer(sc);
-			if(exp.length()>100) {
+			String exps = leer(sc);
+			if(!exps.matches("\\d+") && exps.length()>100) {
 				escribir("Maximo 100 caracteres");
 			} else {
+				exp = Integer.parseInt(exps);
 				comOK = true;
 			}
 		}

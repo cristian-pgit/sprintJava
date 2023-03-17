@@ -1,5 +1,6 @@
 package sprint;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -7,6 +8,7 @@ public class Principal {
 	static Scanner sc = new Scanner(System.in);
 	static Contenedor cont = new Contenedor();
 	static Cliente cli; static Capacitacion cap; static Accidente acc;
+	static List<Capacitacion> capas;
 	
 	public static void main (String[]Args) {
 		
@@ -27,7 +29,7 @@ public class Principal {
 				switch (opc) {
 				
 				case 1:
-					cont.crearCliente(cli, acc, cap);
+					cont.crearCliente(acc, cap);
 					break;
 				case 2:
 					cont.crearProfesional();
@@ -52,7 +54,7 @@ public class Principal {
 					cont.listarXTipo();
 					break;
 				case 8:
-					cont.listarCapacitaciones();
+					cont.listarCapacitaciones(capas);
 					break;
 				case 9:
 					keepGoing = false;
