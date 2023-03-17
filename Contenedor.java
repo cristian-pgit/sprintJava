@@ -317,7 +317,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fAnio = "";
 		while(!fechaOk) {
-			escribir("Ingrese Año:");
+			escribir("Ingrese Anio:");
 			fAnio = leer(sc);
 			if (!fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
 				escribir("Ingrese un anio valido. Desde 1900 a 2100 .... no se aceptan vampiros, inmortales y gente del futuro");
@@ -331,7 +331,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fAnio = "";
 		while(!fechaOk) {
-			escribir("Ingrese Año:");
+			escribir("Ingrese Anio:");
 			fAnio = leer(sc);
 			if (!fAnio.matches("20[0-4][0-9]|2050")) {
 				escribir("Ingrese un anio valido. Desde 2000 a 2050. No habian registros antes del 2000, ni confiamos llegar mas alla del 2050");
@@ -491,7 +491,7 @@ public class Contenedor {
 	public static void hayCapacitaciones(Cliente cli, List<Capacitacion> capas, Capacitacion cap) {
 	    boolean hayCap = true;
 	    while (hayCap) {
-	        escribir("¿Desea ingresar una Capacitacion? (y/n)");
+	        escribir("Desea ingresar una Capacitacion? (y/n)");
 	        String resp = leer(sc);
 	        if (resp.equalsIgnoreCase("y")) {
 	            crearCapacitacion();
@@ -500,7 +500,7 @@ public class Contenedor {
 	        } else if (resp.equalsIgnoreCase("n")) {
 	            hayCap = false;
 	        } else {
-	            escribir("Respuesta inválida. Ingrese 'y' para sí o 'n' para no.");
+	            escribir("Respuesta invalida. Ingrese 'y' para sí o 'n' para no.");
 	        }
 	    }
 	}
@@ -564,7 +564,7 @@ public class Contenedor {
 		boolean diaOk = false;
 		String dia = "";
 		while(!diaOk) {
-			escribir("Ingrese Día de la Capacitacion (dia de semana, ej Lunes):");
+			escribir("Ingrese Dia de la Capacitacion (dia de semana, ej Lunes):");
 			dia = leer(sc);
 			if (dia.equalsIgnoreCase("lunes") || 
 				    dia.equalsIgnoreCase("martes") || 
@@ -635,9 +635,9 @@ public class Contenedor {
 	        escribir("Ingrese Duración:");
 	        dur = leer(sc);
 	        if (dur.length() > 70) {
-	            escribir("No puede tener más de 70 caracteres");
+	            escribir("No puede tener mas de 70 caracteres");
 	        } else if (!dur.matches("^[0-9]+$")) {
-	            escribir("Solo se permiten números");
+	            escribir("Solo se permiten numeros");
 	        } else {
 	            durOk = true;
 	        }
@@ -988,7 +988,7 @@ public class Contenedor {
 	    System.out.println(ANSI_WHITE+"----------------- Ruts existentes -----------------------"+ANSI_RESET);
 	    for (Asesoria a : ase) {
 	        if (a instanceof Cliente) {
-	            System.out.println(((Cliente) a).obtenerNombre()+" RUT: "+ ((Cliente) a).getRut());
+	            System.out.println(ANSI_YELLOW+((Cliente) a).obtenerNombre()+" RUT: "+ ((Cliente) a).getRut()+ANSI_RESET);
 	        }
 	    }
 	    System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
