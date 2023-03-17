@@ -14,6 +14,8 @@ public class Administrativo extends Usuario {
 		this.area = area;
 		this.experiencia = experiencia;
 	}
+	public Administrativo() {		
+	}
 	
 	//Gett and Sett
 

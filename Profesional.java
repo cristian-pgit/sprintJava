@@ -12,6 +12,7 @@ public class Profesional extends Usuario{
 		}
 		
 		
+		
 		//Constructor Profesional con datos, con Super que trae datos de Usuario
 		public Profesional(String nUsuario, String fNacimiento, int run, String tituloProfesional, String fechaIngreso) {
 			super(nUsuario, fNacimiento, run);

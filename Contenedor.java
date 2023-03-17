@@ -10,7 +10,7 @@ public class Contenedor {
 	static Scanner sc = new Scanner(System.in);
 	
 	
-	List<Asesoria> ase = new ArrayList<Asesoria>();
+	static List<Asesoria> ase = new ArrayList<Asesoria>();
 	static List<Capacitacion> capas = new ArrayList<Capacitacion>();
 	
 	
@@ -48,17 +48,74 @@ public class Contenedor {
 			Visitaterreno vis = new Visitaterreno();
 			crearVisita(vis);
 			addVisita(vis);
+			ase.add(user);
 			
 		}
 		
 	}
 	
 	public static void crearProfesional() {
-		
+		escribir("Bievenido a la Creacion de Usuario - Profesional");
+		Profesional user = new Profesional();
+		String userN = pedirUserName();
+		user.setUsuario(userN);
+		String fecha = fechaN();
+		user.setfNacimiento(fecha);
+		int run = pedirRun();
+		user.setRun(run);
+		String tit = pedirTit();
+		user.setTituloProfesional(tit);
+		String fechaIng = fechaIn();
+		user.setFechaIngreso(fechaIng);
+		escribir("Creacion de profesional exitosa");
+	}
+	
+	
+	
+	public static String pedirTit() {
+		int largoTit = 9;
+		String titulo = "";
+		while (largoTit<10 && largoTit>50) {
+			escribir("Ingrese nombre del Titulo del Profesional, asegurese que no sean mas de 50 caracteres ni menos de 10");
+				titulo = leer(sc);
+				largoTit = titulo.length();
+				if (largoTit<10 && largoTit>50) {
+					escribir ("Por favor, ingrese un Titulo Profesional valido");
+				}
+		}
+		return titulo;
+	}
+	
+	public static String fechaIn() {
+		return fDia()+"/"+fMes()+"/"+fAnio();
 	}
 	
 	public static void crearAdministrativo() {
+		escribir("Bievenido a la creacion de Usuario - Administrativo");
+		Administrativo user = new Administrativo();
+		String userN = pedirUserName();
+		user.setUsuario(userN);
+		String fecha = fechaN();
+		user.setfNacimiento(fecha);
+		int run = pedirRun();
+		user.setRun(run);
+		String area = pedirAreaAdm();
+		user.setArea(area);
 		
+	}
+	
+	public static String pedirAreaAdm() {
+		String area = "";
+		int largoArea = 4;
+		while (largoArea<5 && largoArea>20) {
+			escribir("Ingrese el area en la que se desempena el administrativo, asegurese que no sean mas de 20 caracteres ni menos de 5");
+				area = leer(sc);
+				largoArea = area.length();
+				if (largoArea<5 && largoArea>20) {
+					escribir ("Por favor, ingrese un area de desempeno valida");
+				}
+		}
+		return area;
 	}
 	
 	public static void crearCapacitacion(Capacitacion capa) {
@@ -140,7 +197,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Dia:");
 			fDia = leer(sc);
-			if (fDia.matches("0[1-9]|[12][0-9]|3[01]")) {
+			if (!fDia.matches("0[1-9]|[12][0-9]|3[01]")) {
 				escribir("Ingrese un dia de valido. De 01 a 31 (favor recuerde Febrero tiene hasta 28 o 29)");
 			} else {
 				fechaOk = true;
@@ -154,7 +211,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Mes:");
 			fMes = leer(sc);
-			if (fMes.matches("0[1-9]|1[0-2]")) {
+			if (!fMes.matches("0[1-9]|1[0-2]")) {
 				escribir("Ingrese un mes Valido. De 01 a 12");
 			} else {
 				fechaOk = true;
@@ -168,7 +225,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Año:");
 			fAnio = leer(sc);
-			if (fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
+			if (!fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
 				escribir("Ingrese un anio valido. Desde 1900 a 2100 .... no se aceptan vampiros, inmortales y gente del futuro");
 			} else {
 				fechaOk = true;
@@ -182,7 +239,7 @@ public class Contenedor {
 		while(!fechaOk) {
 			escribir("Ingrese Año:");
 			fAnio = leer(sc);
-			if (fAnio.matches("20[0-4][0-9]|2050")) {
+			if (!fAnio.matches("20[0-4][0-9]|2050")) {
 				escribir("Ingrese un anio valido. Desde 2000 a 2050. No habian registros antes del 2000, ni confiamos llegar mas alla del 2050");
 			} else {
 				fechaOk = true;
