@@ -17,7 +17,27 @@ Es necesario desarrollar una solución tecnológica que cubra los procesos de ne
 
 
 **DESARROLLO**
-
+En el desarrollo de la solución al problema, abordamos el proceso por etapas. En primer lugar, realizamos
+un análisis detallado de los requerimientos de la empresa y sus clientes. Documentamos los
+requerimientos de manera precisa para poder diseñar y desarrollar una solución que satisfaga sus
+necesidades. Posteriormente, nos reunimos para discutir el contexto del ejercicio y diseñar un Diagrama
+de Clase. Este diagrama nos permitió identificar las clases del sistema y sus relaciones entre ellas.
+Aplicamos conceptos como herencia, abstracción, encapsulamiento y polimorfismo. Asignamos tareas
+específicas a cada miembro del equipo.
+Durante el desarrollo del proyecto, cada avance individual se subió al repositorio Github. El encargado
+del repositorio verificó el código y unió todas las partes para asegurar su correcta funcionalidad.
+Finalmente, después de completar la codificación, llevamos a cabo pruebas exhaustivas para verificar
+que el sistema funcionara sin errores. Durante este proceso, encontramos dificultad en crear la función
+de “Eliminación de Usuarios”. Esta función resultó ser la más compleja de implementar. Es importante
+destacar que esta función es parte de un programa que administra un sistema de asesorías. Su objetivo es
+eliminar un usuario de una lista de asesorías proporcionada como parámetro.
+Otra función que fue difícil crear es la función “Listar por tipo”. Esta función muestra los usuarios de un
+tipo específico (clientes, profesionales o administrativos) en un sistema de asesoría. Utiliza un menú que
+solicita al usuario que seleccione el tipo de usuario que desea ver. Luego itera a través de una lista de
+usuarios de asesoría para imprimir información sobre los usuarios de ese tipo seleccionado.
+Una vez finalizado y comprobado el programa, se realizó una prueba de test del programa completo. Esto
+nos permitió verificar cómo se ejecutaba el programa, buscando errores y depurando el código.
+Finalmente, documentamos el código utilizando Javadoc.
 
 ### Integrantes: 
 
