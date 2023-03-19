@@ -24,37 +24,37 @@ public class Accidente {
 		return rutC;
 	}
 	public void setRutC(int rutC) {
-		rutC = rutC;
+		this.rutC = rutC;
 	}
 	public String getdia() {
 		return dia;
 	}
 	public void setdia(String dia) {
-		dia = dia;
+		this.dia = dia;
 	}
 	public String getHora() {
 		return hora;
 	}
 	public void setHora(String hora) {
-		hora = hora;
+		this.hora = hora;
 	}
 	public String getLugar() {
 		return lugar;
 	}
 	public void setLugar(String lugar) {
-		lugar = lugar;
+		this.lugar = lugar;
 	}
 	public String getOrigen() {
 		return origen;
 	}
 	public void setorigen(String origen) {
-		origen = origen;
+		this.origen = origen;
 	}
 	public String getconsec() {
 		return consec;
 	}
 	public void setconsec(String consec) {
-		consec = consec;
+		this.consec = consec;
 	}
 	@Override
 	public String toString() {

@@ -1,22 +1,21 @@
 package sprint;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
 	
-	static Scanner sc = new Scanner(System.in);
-	static Contenedor cont = new Contenedor();
-	static Cliente cli; static Capacitacion cap; static Accidente acc;
-	static List<Capacitacion> capas;
+	private static Scanner sc = new Scanner(System.in);
+	
 	
 	public static void main (String[]Args) {
-		
+		Contenedor cont = new Contenedor();
 		boolean keepGoing = true;
 		while(keepGoing) {
 			try {
-				Contenedor.escribir("Bienvenido al Sistema de Prevencion de Riesgos <<Piker Dans Les Youx>>\n"+"Elija una opcion:\n"+
-			"\t1.- Crear Cliente\n"+ "\t2.- Crear Profesional\n"+"\t3.- Crear Administrativo\n"+"\t4.- Crear Capacitaciones\n"+
+				Contenedor.escribir("Bienvenido al Sistema de Prevencion de Riesgos "+Contenedor.ANSI_YELLOW+
+						"<<Piker Dans Les Youx>>"+Contenedor.ANSI_RESET+"\n"+"Elija una opcion:\n"+
+			"\t1.- Crear Cliente\n"+ "\t2.- Crear Profesional\n"+"\t3.- Crear Administrativo\n"+
+						"\t4.- Crear Capacitaciones\n"+
 						"\t5.- Eliminar Usuario\n"+"\t6.- Listar Usuarios\n"+"\t7.- Listar Usuarios por Tipo\n"+
 			"\t8.- Listar Capacitaciones\n"+"\t9. Salir");
 				String opcion = "";
@@ -29,7 +28,9 @@ public class Principal {
 				switch (opc) {
 				
 				case 1:
-					cont.crearCliente(acc, cap);
+					//retornar cliente y asignar a acc
+					cont.crearCliente();
+					
 					break;
 				case 2:
 					cont.crearProfesional();
@@ -40,12 +41,11 @@ public class Principal {
 					break;
 					
 				case 4:
-					Capacitacion cap = new Capacitacion();
-					cont.crearCapacitacion(cont.capas);
+					cont.crearCapacitacion();
 				
 					break;
 				case 5:
-					cont.eliminarUsuario(cont.ase);
+					cont.eliminarUsuario();
 					break;
 				case 6:
 					cont.mostrarUsuarios();
@@ -54,17 +54,18 @@ public class Principal {
 					cont.listarXTipo();
 					break;
 				case 8:
-					capas = cont.capas;
-					cont.listarCapacitaciones(capas);
+					cont.listarCapacitaciones();
 					break;
 				case 9:
+					Contenedor.escribir("Apagando sistema");
 					keepGoing = false;
 					break;
 					
 				}
 				
 			} catch(Exception e) {
-				cont.escribir("Opcion es de 1 a 9, sin caracteres o simbolos.");
+				e.printStackTrace();
+				Contenedor.escribir("Opcions es de 1 a 9, sin caracteres o simbolos.");
 			}
 		}
 		

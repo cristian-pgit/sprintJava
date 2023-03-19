@@ -10,11 +10,16 @@ public class Contenedor {
 	static Scanner sc = new Scanner(System.in);
 	
 	
-	static List<Asesoria> ase = new ArrayList<Asesoria>();
-	static List<Capacitacion> capas = new ArrayList<Capacitacion>();
+	protected List<Asesoria> ase;
+	protected List<Capacitacion> capas;
+	
+	public Contenedor () {
+		this.ase = new ArrayList<Asesoria>();
+		this.capas = new ArrayList<Capacitacion>();
+	}
 	
 	
-	public static void crearCliente(Accidente acc, Capacitacion cap) {
+	public void crearCliente() {
 
 		Cliente cli = new Cliente();
 		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
@@ -45,14 +50,13 @@ public class Contenedor {
 		// anade el usuario creado a la lista de Asesoria,
 		ase.add(cli);
 		// Crear Capacitacion si de desea
-		hayCapacitaciones(cli, capas, cap);
+		hayCapacitaciones();
 		//crear accidente si se desea
 		hayAccidente();
 		//ingresar primera visita. Visita crea una Revision y preguntara si se desean mas revisiones
-		Visitaterreno vis = new Visitaterreno();
-		crearVisita(vis);
+		crearVisita();
 		//preguntar si se desea agregar una nueva visita
-		addVisita(vis);
+		addVisita();
 	//	// anade el usuario creado a la lista de Asesoria,
 	//	ase.add(cli);
 		//despliega mensaje indicando que el usuario se ha creado exitosamente.
@@ -60,7 +64,7 @@ public class Contenedor {
 
 	}
 	
-	public static void crearProfesional() {
+	public  void crearProfesional() {
 		Profesional user = new Profesional();
 		escribir("Bienvenido a la Creacion de Usuario - Profesional");
 		String userN = pedirUserName();
@@ -78,7 +82,7 @@ public class Contenedor {
 		escribir(ANSI_CYAN+"Usuario Creado Exitosamente"+ANSI_RESET);
 	}
 	
-	public static void crearAdministrativo() {
+	public void crearAdministrativo() {
 		Administrativo adm = new Administrativo();
 		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
 		String userN = pedirUserName();
@@ -96,7 +100,7 @@ public class Contenedor {
 		escribir(ANSI_CYAN+"Usuario Creado Exitosamente"+ANSI_RESET);
 	}
 	
-	public static void crearCapacitacion(List<Capacitacion> capas) {
+	public void crearCapacitacion() {
 		boolean creaCapa = false;
 		while (creaCapa == false) {
 			Capacitacion capa = new Capacitacion();
@@ -118,18 +122,18 @@ public class Contenedor {
 		}		
 	}
 	
-	public static void eliminarUsuario(List<Asesoria> ase) {
+	public void eliminarUsuario() {
 		Usuario usuario = buscarRun(ase);
 		if (usuario != null) {
 			boolean seguro = false;
 			while (!seguro) {
 				usuario.analizarUsuario();
 				escribir("Run: "+usuario.getRun());
-				escribir("Esta seguro que desea borrar este usuario? (y/n: ");
+				escribir(ANSI_RED+"[ADVERTENCIA] "+ANSI_RESET+"Esta seguro que desea borrar este usuario? (y/n): ");
 				String ans = leer(sc);
 				if (ans.matches("[yYnN]") && ans.equalsIgnoreCase("y")) {
 					ase.remove(usuario);
-					escribir("Usuario Eliminado");
+					escribir(ANSI_YELLOW+"Usuario Eliminado"+ANSI_RESET);
 					seguro = true;
 				} else if (ans.matches("[yYnN]") && ans.equalsIgnoreCase("n")) {
 					seguro = true;
@@ -141,7 +145,7 @@ public class Contenedor {
 		}
 	}
 	
-	public static void mostrarUsuarios() {
+	public void mostrarUsuarios() {
 		int i = 1;
 		for (Asesoria a:ase) {
 			System.out.println(ANSI_WHITE+"----------------- Usuario: "+i+" -----------------------"+ANSI_RESET);
@@ -151,7 +155,7 @@ public class Contenedor {
 		}
 	}
 	
-	public static void listarXTipo() {
+	public void listarXTipo() {
 		
 		boolean elige = false;
 		while(!elige) {
@@ -167,48 +171,57 @@ public class Contenedor {
 				switch (opc) {
 				
 				case 1:
-					int i = 1;
-					for (Asesoria a:ase) {
-						if(a instanceof Cliente) {
-							System.out.println(ANSI_WHITE+"----------------- Cliente: "+i+" -----------------------"+ANSI_RESET);
-							a.analizarUsuario();
-							i++;
-							System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
-						} else {
-							escribir("No Hay usuarios de este tipo");
-						}
-					}
-					elige = true;
-					break;
+				    int i = 1;
+				    boolean hay = false;
+				    for (Asesoria a : ase) {
+				        if (a instanceof Cliente) {
+				            System.out.println(ANSI_WHITE + "----------------- Cliente: " + i + " -----------------------" + ANSI_RESET);
+				            a.analizarUsuario();
+				            i++;
+				            System.out.println(ANSI_PURPLE + "----------------------------------------------------" + ANSI_RESET);
+				            hay = true;
+				        }
+				    }
+				    if (!hay) {
+				        escribir("No hay Usuarios de este tipo");
+				    }
+				    elige = true;
+				    break;
 				case 2:
-					i = 1;
-					for (Asesoria a:ase) {
-						if(a instanceof Profesional) {
-							System.out.println(ANSI_WHITE+"----------------- Profesional: "+i+" -----------------------"+ANSI_RESET);
-							a.analizarUsuario();
-							i++;
-							System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
-						}else {
-							escribir("No Hay usuarios de este tipo");
-						}
-					}
-					elige = true;
-					break;
-					
+				    i = 1;
+				    hay = false;
+				    for (Asesoria a : ase) {
+				        if (a instanceof Profesional) {
+				            System.out.println(ANSI_WHITE + "----------------- Profesional: " + i + " -----------------------" + ANSI_RESET);
+				            a.analizarUsuario();
+				            i++;
+				            System.out.println(ANSI_PURPLE + "----------------------------------------------------" + ANSI_RESET);
+				            hay = true;
+				        }
+				    }
+				    if (!hay) {
+				        escribir("No hay Usuarios de este tipo");
+				    }
+				    elige = true;
+				    break;
 				case 3:
-					i = 1;
-					for (Asesoria a:ase) {
-						if(a instanceof Administrativo) {
-							System.out.println(ANSI_WHITE+"----------------- Administrativo: "+i+" -----------------------"+ANSI_RESET);
-							a.analizarUsuario();
-							i++;
-							System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
-						}else {
-							escribir("No Hay usuarios de este tipo");
-						}
-					}
-					elige = true;
-					break;			
+				    i = 1;
+				    hay = false;
+				    for (Asesoria a : ase) {
+				        if (a instanceof Administrativo) {
+				            System.out.println(ANSI_WHITE + "----------------- Administrativo: " + i + " -----------------------" + ANSI_RESET);
+				            a.analizarUsuario();
+				            i++;
+				            System.out.println(ANSI_PURPLE + "----------------------------------------------------" + ANSI_RESET);
+				            hay = true;
+				        }
+				    }
+				    if (!hay) {
+				        escribir("No hay Usuarios de este tipo");
+				    }
+				    elige = true;
+				    break;
+			
 				}	
 			} catch(Exception e) {
 				escribir("Opcion es de 1 a 3, sin caracteres o simbolos.");
@@ -217,7 +230,7 @@ public class Contenedor {
 		
 	}
 	
-	public static void listarCapacitaciones(List<Capacitacion> capas) {
+	public void listarCapacitaciones() {
 		int i = 1;
 		for (Capacitacion c:capas) {
 			System.out.println(ANSI_WHITE+"----------------- Capacitacion: "+i+" -----------------------"+ANSI_RESET);
@@ -228,10 +241,11 @@ public class Contenedor {
 		
 	}
 	
-	public static Usuario buscarRun(List<Asesoria> ase) {
+	public Usuario buscarRun(List<Asesoria> ase) {
 	    boolean runOk = false;
 	    Usuario usuario = null;
 	    while (!runOk) {
+	    	showRunExistentes();
 	        System.out.print("Ingrese el Rut del usuario a buscar: ");
 	        String runs = leer(sc);
 	        if (runs.matches("^\\d{8}$")) {
@@ -269,19 +283,19 @@ public class Contenedor {
 	}
 	
 	public static String fechaN() {
-		escribir("Ingrese Fecha de Nacimiento:");
+		escribir("Ingrese Fecha de Nacimiento (DD/MM/AAAA):");
 		return fDia()+"/"+fMes()+"/"+fAnio();
 	}
 	public static String fechaV() {
-		escribir("Ingrese Fecha de Visita:");
+		escribir("Ingrese Fecha de Visita (DD/MM/AAAA):");
 		return fDia()+"/"+fMes()+"/"+vAnio();
 	}
 	public static String fechaA() {
-		escribir("Ingrese Dia del Accidente:");
+		escribir("Ingrese Dia del Accidente (DD/MM/AAAA):");
 		return fDia()+"/"+fMes()+"/"+vAnio();
 	}
 	public static String fechaI() {
-		escribir("Ingrese Fecha de Ingreso:");
+		escribir("Ingrese Fecha de Ingreso (DD/MM/AAAA):");
 		return fDia()+"/"+fMes()+"/"+vAnio();
 	}
 	
@@ -289,7 +303,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fDia = "";
 		while(!fechaOk) {
-			escribir("Ingrese Dia:");
+			escribir("Ingrese Dia (01 a 31[salvo Febrero]):");
 			fDia = leer(sc);
 			if (!fDia.matches("^(0[1-9]|[1-2][0-9]|3[0-1])$")) {
 				escribir("Ingrese un dia de valido. De 01 a 31 (favor recuerde Febrero tiene hasta 28 o 29)");
@@ -303,7 +317,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fMes = "";
 		while(!fechaOk) {
-			escribir("Ingrese Mes:");
+			escribir("Ingrese Mes (01 a 12):");
 			fMes = leer(sc);
 			if (!fMes.matches("0[1-9]|1[0-2]")) {
 				escribir("Ingrese un mes Valido. De 01 a 12");
@@ -317,7 +331,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fAnio = "";
 		while(!fechaOk) {
-			escribir("Ingrese Anio:");
+			escribir("Ingrese Anio (de 1900 - 2100):");
 			fAnio = leer(sc);
 			if (!fAnio.matches("19\\d{2}|20\\d{2}|2100")) {
 				escribir("Ingrese un anio valido. Desde 1900 a 2100 .... no se aceptan vampiros, inmortales y gente del futuro");
@@ -331,7 +345,7 @@ public class Contenedor {
 		boolean fechaOk = false;
 		String fAnio = "";
 		while(!fechaOk) {
-			escribir("Ingrese Anio:");
+			escribir("Ingrese Anio (2000 a 2050):");
 			fAnio = leer(sc);
 			if (!fAnio.matches("20[0-4][0-9]|2050")) {
 				escribir("Ingrese un anio valido. Desde 2000 a 2050. No habian registros antes del 2000, ni confiamos llegar mas alla del 2050");
@@ -488,15 +502,13 @@ public class Contenedor {
 		return edad;
 	}
 	
-	public static void hayCapacitaciones(Cliente cli, List<Capacitacion> capas, Capacitacion cap) {
+	public void hayCapacitaciones() {
 	    boolean hayCap = true;
 	    while (hayCap) {
 	        escribir("Desea ingresar una Capacitacion? (y/n)");
 	        String resp = leer(sc);
 	        if (resp.equalsIgnoreCase("y")) {
-	            crearCapacitacion(capas);
-	            cli.addCapa(cap);
-	            capas.add(cap);
+	            crearCapacitacion();
 	        } else if (resp.equalsIgnoreCase("n")) {
 	            hayCap = false;
 	        } else {
@@ -522,7 +534,7 @@ public class Contenedor {
 		return id;
 	}
 	
-	public static int pedirRutC() {
+	public int pedirRutC() {
 		boolean rutOk = false;
 		int rutc = 0;
 		while(!rutOk) {
@@ -666,9 +678,10 @@ public class Contenedor {
 		return cantA;
 	}
 	
-	public static void crearVisita(Visitaterreno vis) {
+	public void crearVisita() {
 		boolean visOk = false;
 		while(!visOk) {
+			Visitaterreno vis = new Visitaterreno();
 			escribir("Registrando Visita a Terreno");
 			int id = idVis();
 			vis.setIdTerreno(id);
@@ -687,7 +700,7 @@ public class Contenedor {
 			vis.addRevi(rev);
 			addRevision(rev, vis);
 			visOk = true;
-			escribir("Visita Creada Exitosamente");
+			escribir(ANSI_BLUE+"Visita Creada Exitosamente"+ANSI_RESET);
 		}
 	}
 	
@@ -817,14 +830,14 @@ public class Contenedor {
 	}
 	
 
-	public static void addVisita(Visitaterreno vis) {
+	public void addVisita() {
 		boolean hayCap = false;
 		String resp = "";
 		while(!hayCap) {
 			escribir("Ingrese Desea ingresar otra Visita a Terreno? (y/n)");
 			resp = leer(sc);
 			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
-				crearVisita(vis);
+				crearVisita();
 			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
 				hayCap = true;
 			} 
@@ -846,7 +859,7 @@ public class Contenedor {
 			int estado = pedirEst();
 			rev.setEstado(estado);
 			visOk = true;
-			escribir("Visita Creada Exitosamente");
+			escribir(ANSI_BLUE+"Visita Creada Exitosamente"+ANSI_RESET);
 		}
 	}
 	
@@ -912,15 +925,14 @@ public class Contenedor {
 		}
 	}
 	
-	public static void hayAccidente() {
+	public void hayAccidente() {
 		boolean hayAcc = false;
 		String resp = "";
 		while(!hayAcc) {
 			escribir("Desea ingresar un Accidente? (y/n)");
 			resp = leer(sc);
 			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
-				Accidente acc = new Accidente();
-				crearAccidente(acc);
+				crearAccidente();
 				
 			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
 				hayAcc = true;
@@ -928,9 +940,8 @@ public class Contenedor {
 		}	
 	}
 	
-	public static void crearAccidente(Accidente acc) {
-		boolean visOk = false;
-		while(!visOk) {
+	public void crearAccidente() { 
+			Accidente acc = new Accidente();
 			escribir("Registrando Accidente");
 			int id = idAcc();
 			acc.setidAccid(id);
@@ -947,8 +958,7 @@ public class Contenedor {
 			acc.setorigen(ori);
 			String cons = consecuencia();
 			acc.setconsec(cons);
-			
-		}
+			escribir(ANSI_BLUE+"Accidente creado Exitosamente"+ANSI_RESET);
 	}
 	
 	public static int idAcc() {
@@ -967,16 +977,14 @@ public class Contenedor {
 		return id;
 	}
 	
-	public static void addAccidente(Cliente cli) {
+	public void addAccidente() {
 		boolean hayCap = false;
 		String resp = "";
 		while(!hayCap) {
 			escribir("Ingrese Desea ingresar otro Accidente? (y/n)");
 			resp = leer(sc);
 			if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("y")) {
-				Accidente acc = new Accidente();
-				crearAccidente(acc);
-				cli.addAcc(acc);
+				crearAccidente();
 			} else if (resp.matches("[yYnN]") && resp.equalsIgnoreCase("n")) {
 				hayCap = true;
 			} 
@@ -984,12 +992,20 @@ public class Contenedor {
 	}
 	
 	
-	public static void showRutExistentes() {
+	public void showRutExistentes() {
 	    System.out.println(ANSI_WHITE+"----------------- Ruts existentes -----------------------"+ANSI_RESET);
 	    for (Asesoria a : ase) {
 	        if (a instanceof Cliente) {
 	            System.out.println(ANSI_YELLOW+((Cliente) a).obtenerNombre()+" RUT: "+ ((Cliente) a).getRut()+ANSI_RESET);
 	        }
+	    }
+	    System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+	}
+	
+	public void showRunExistentes() {
+	    System.out.println(ANSI_WHITE+"----------------- Ruts existentes -----------------------"+ANSI_RESET);
+	    for (Asesoria a : ase) {
+	       System.out.println(ANSI_YELLOW+((Cliente) a).obtenerNombre()+" RUN: "+ ((Cliente) a).getRun()+ANSI_RESET);
 	    }
 	    System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
 	}
