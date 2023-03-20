@@ -1,5 +1,8 @@
 # sprintJava
 ## Git del Sprint de Modulo4
+![Team Logo](https://user-images.githubusercontent.com/112448130/226371540-91a03034-4bfd-4de7-8dec-dd90d02f346b.png)
+
+
 
 **CONTEXTO**
 
@@ -47,7 +50,4 @@ Finalmente, documentamos el código utilizando Javadoc.
 |Matias Calderon|@matcalderon|
 |Jorge Arancibia|@jorgearancibiaalejandro|
 |Adrian Fredes|@adrianfredes|
-- Cristian Carrillo @cristian-pvgit
-- Matias Calderon @matcalderon
-- Adrian Fredes @adrianfredes
-- Jorge Arancibia @jorgearancibiaalejandro
+
