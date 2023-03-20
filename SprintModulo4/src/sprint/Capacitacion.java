@@ -53,7 +53,7 @@ public class Capacitacion {
 	 *
 	 * @param  rutC modifica el valor rut cliente
 	 */
-	public void setRun(int rutC) {
+	public void setRutC(int rutC) {
 		this.rutC = rutC;
 	}
 	

@@ -140,25 +140,34 @@ public class Contenedor {
 	 * pedirLugar(), pedirDur() y pedirCant().
 	 */
 	public void crearCapacitacion() {
-		boolean creaCapa = false;
-		while (creaCapa == false) {
-			Capacitacion capa = new Capacitacion();
-			escribir("Bienvenido a la Creacion de Capacicationes.");
-			int id = pedirIdCapa();
-			capa.setIdCapa(id);
-			int run = pedirRutC();
-			capa.setRun(run);
-			capa.setDia(pedirDia());
-			String hora = pedirHr()+":"+ pedirMin();
-			capa.setHora(hora);
-			capa.setLugar(pedirLugar());
-			capa.setDuracion(pedirDur());
-			capa.setCantAsist(pedirCant());
-			capas.add(capa);
-			creaCapa = true;
-			escribir(ANSI_BLUE+"Capacitacion Creada Exitosamente"+ANSI_RESET);
-			capa.mostrarDetalles();
-		}		
+		if(ase.isEmpty()) {
+			escribir(tRojo("No hay Clientes a quien crear una Capacitacion")+
+					"\n"+tVerde("Favor cree un Usuario-Cliente primero"));
+		} else {
+			boolean creaCapa = false;
+			while (creaCapa == false) {
+				Capacitacion capa = new Capacitacion();
+				escribir("Bienvenido a la Creacion de Capacicationes.");
+				int id = pedirIdCapa();
+				capa.setIdCapa(id);
+				showRutExistentes();
+				Cliente cli = buscarRutC(ase);
+				int rutC = cli.getRut();
+				capa.setRutC(rutC);
+				capa.setDia(pedirDia());
+				String hora = pedirHr()+":"+ pedirMin();
+				capa.setHora(hora);
+				capa.setLugar(pedirLugar());
+				capa.setDuracion(pedirDur());
+				capa.setCantAsist(pedirCant());
+				capas.add(capa);
+				cli.addCapa(capa);
+				creaCapa = true;
+				escribir(ANSI_BLUE+"Capacitacion Creada Exitosamente"+ANSI_RESET);
+				capa.mostrarDetalles();
+			}
+		}
+				
 	}
 	
 	/**
@@ -297,12 +306,14 @@ public class Contenedor {
 	    boolean hay = false;
 	    for (Capacitacion c:capas) {
 			System.out.println(ANSI_WHITE+"----------------- Capacitacion: "+i+" -----------------------"+ANSI_RESET);
+			escribir(tVerde("Cliente: " + obtClibRut(ase, c.getRutC()).mosDatoCli()));
 			c.mostrarDetalles();
+			hay=true;
 			i++;
 			System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
 		}
 	    if (!hay) {
-	        escribir("No hay Capacitaciones inscritas");
+	        escribir(tRojo("No hay Capacitaciones inscritas"));
 	    }
 	}
 	
@@ -337,7 +348,95 @@ public class Contenedor {
 	    return usuario; // retorna usuario buscado o retorna null
 	}
 	
-
+	
+	/**
+	 * Metodo Buscar rutC.
+	 * La función buscarRutC recibe como parámetro una lista de Asesorías llamada ase. 
+	 * Esta función permite buscar un cliente dentro de la lista de asesorías, 
+	 * ingresando su RUT de 8 dígitos.
+	 *
+	 * @param ase Lista de Asesorias
+	 * @return el usuario
+	 */
+	public Cliente buscarRutC(List<Asesoria> ase) {
+		boolean rutOk = false;
+		boolean hayCliente = false;
+		Cliente cliente = null;
+		while (!rutOk) {
+			System.out.print("Ingrese el Rut del Cliente a buscar: ");
+			String rutS = leer(sc);
+			if (rutS.matches("^\\d{8}$")) {
+				int rutC = Integer.parseInt(rutS);
+				for (Asesoria a : ase) {
+					if (a instanceof Cliente) { 
+						for (Asesoria as : ase) {
+							if (as instanceof Cliente) {
+								hayCliente = true; // cambia el valor si hay al menos un cliente
+								if (((Cliente) as).getRut() == rutC) {
+									cliente = (Cliente) as; // encuentra el cliente con el rut buscado
+									rutOk = true;
+									break;
+								}
+							}
+						}
+						if (!hayCliente) { // si no hay ningún cliente en la lista
+							System.out.println("El rut no existe"); // muestra el mensaje
+							return null; // aborta la función
+						}
+					} else {
+						System.out.println("Ingreso invalido. Solo numeros, 8 digitos");
+					}
+				}
+			}
+		}
+		return cliente; // retorna cliente buscado o retorna null
+	}
+	       
+	           
+	  //          for (Asesoria a : ase) {
+	  //              if (a instanceof Cliente && ((Cliente) a).getRut() == rutC) {
+	  //                  cliente = (Cliente) a; // encuentra el cliente con el rut buscado
+	  //                  rutOk = true;
+	  //                  break;
+	  //              }
+	  //              else if (a instanceof Cliente && ((Cliente) a).getRut() != rutC) {
+	  //              	escribir("Rut buscado no existe");
+	  //              }
+	  //          }
+	  //      } else {
+	  //          System.out.println("Ingreso invalido. Solo numeros, 8 digitos");
+	  //      }
+	  //  }
+	  //  return cliente; // retorna cliente buscado o retorna null
+//	}
+	
+	/**
+	 * Metodo Buscar rutC.
+	 * La función buscarRutC recibe como parámetro una lista de Asesorías llamada ase. 
+	 * Esta función permite buscar un cliente dentro de la lista de asesorías, 
+	 * ingresando su RUT de 8 dígitos.
+	 *
+	 * @param ase Lista de Asesorias
+	 * @return el usuario
+	 */
+	public Cliente obtClibRut(List<Asesoria> ase, int rutC) {
+	    boolean hayCliente = false; // nueva variable
+	    Cliente cliente = null;
+	    for (Asesoria a : ase) {
+	        if (a instanceof Cliente) {
+	            hayCliente = true; // cambia el valor si hay al menos un cliente
+	            if (((Cliente) a).getRut() == rutC) {
+	                cliente = (Cliente) a; // encuentra el cliente con el rut buscado
+	                break;
+	            }
+	        }
+	    }
+	    if (!hayCliente) { // si no hay ningún cliente en la lista
+	        System.out.println("El rut no existe"); // muestra el mensaje
+	        return null; // aborta la función
+	    }
+	    return cliente; // retorna cliente buscado o retorna null
+	}
 
 	
 	/**
@@ -750,7 +849,7 @@ public class Contenedor {
 	/**
 	 * Metodo Pedir rutC.
 	 * Esta función solicita al usuario el ingreso del RUT de un cliente y verifica si es válido.
-	 *
+	 * @deprecated
 	 * @return int con Rut Cliente
 	 */
 	public int pedirRutC() {
@@ -955,8 +1054,10 @@ public class Contenedor {
 			escribir("Registrando Visita a Terreno");
 			int id = idVis();
 			vis.setIdTerreno(id);
-			int rut = pedirRutC();
-			vis.setRutC(rut);
+			showRutExistentes();
+			Cliente cli = buscarRutC(ase);
+			int rutC = cli.getRut();
+			vis.setRutC(rutC);
 			String fevis = fechaV();
 			vis.setDia(fevis);
 			String hora = pedirHr()+":"+ pedirMin();
@@ -965,6 +1066,7 @@ public class Contenedor {
 			vis.setLugar(lug);
 			String comm = coment();
 			vis.setComentarios(comm);
+			cli.addVis(vis);
 			Revision rev = new Revision();
 			crearRevision(rev);
 			vis.addRevi(rev);
@@ -1332,8 +1434,10 @@ public class Contenedor {
 			escribir("Registrando Accidente");
 			int id = idAcc();
 			acc.setidAccid(id);
-			int rut = pedirRutC();
-			acc.setRutC(rut);
+			showRutExistentes();
+			Cliente cli = buscarRutC(ase);
+			int rutC = cli.getRut();
+			acc.setRutC(rutC);
 			String dia = fechaA();
 			acc.setdia(dia);
 			escribir("Ingrese la Hora del Accidente");
@@ -1399,14 +1503,21 @@ public class Contenedor {
 	 * (objetos de la clase "Cliente") y sus RUT
 	 */
 	public void showRutExistentes() {
-	    System.out.println(ANSI_WHITE+"----------------- Ruts existentes -----------------------"+ANSI_RESET);
+		boolean hay = false;
+		System.out.println(ANSI_WHITE+"----------------- Ruts existentes -----------------------"+ANSI_RESET);
 	    for (Asesoria a : ase) {
 	        if (a instanceof Cliente) {
 	            System.out.println(ANSI_YELLOW+((Cliente) a).obtenerNombre()+" RUT: "+ ((Cliente) a).getRut()+ANSI_RESET);
+	            hay = true;
 	        }
 	    }
 	    System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+	    if (!hay) {
+	    	escribir("No hay Usuario-Cliente registrados. Primero Registre uno.");
+	    }
 	}
+	
+	
 	
 	
 	/**
@@ -1429,8 +1540,21 @@ public class Contenedor {
 		return sc.nextLine();
 	}
 	
+	public String tRojo(String textoenRojo) {
+		return ANSI_RED+textoenRojo+ANSI_RESET;
+	}
 	
+	public String tVerde(String textoenVerde) {
+		return ANSI_GREEN+textoenVerde+ANSI_RESET;
+	}
 	
+	public String tAma(String textoenAmarillo) {
+		return ANSI_YELLOW+textoenAmarillo+ANSI_RESET;
+	}
+	
+	public String tCyan(String textoenCyan) {
+		return ANSI_CYAN+textoenCyan+ANSI_RESET;
+	}
 	
 	
 	/** The Constant ANSI_WHITE. */

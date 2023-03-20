@@ -24,6 +24,7 @@ public class Cliente extends Usuario {
 	private int edad;
 	private List<Capacitacion> capas = new ArrayList<Capacitacion>();
 	private List<Accidente> acc = new ArrayList<Accidente>();
+	private List<Visitaterreno> vis = new ArrayList<Visitaterreno>();
 	
 	/**
 	 * Constructor Cliente vacio
@@ -256,6 +257,9 @@ public class Cliente extends Usuario {
 				"\nComuna: " + comuna + 
 				"\nEdad: " + edad;
 	}
+	public String mosDatoCli() {
+		return obtenerNombre()+ ", Rut Cliente: " + rut;
+	}
 	
 	/**
 	 * Metodo Obtener Sistema de Salud.
@@ -295,6 +299,29 @@ public class Cliente extends Usuario {
 	 */
 	public void addAcc(Accidente a) {
 		acc.add(a);
+	}
+	
+	/**
+	 * Metodo addAcc.
+	 *
+	 * @param anade accidente a a la lista de Accidente
+	 */
+	public void addVis(Visitaterreno v) {
+		vis.add(v);
+	}
+
+	/**
+	 * @return the vis
+	 */
+	public List<Visitaterreno> getVis() {
+		return vis;
+	}
+
+	/**
+	 * @param vis the vis to set
+	 */
+	public void setVis(List<Visitaterreno> vis) {
+		this.vis = vis;
 	}
 	
 }
