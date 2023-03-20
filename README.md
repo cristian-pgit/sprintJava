@@ -1,7 +1,8 @@
 # sprintJava
 ## Git del Sprint de Modulo4
 
-![Team Logo](https://user-images.githubusercontent.com/112448130/226372376-043d8295-8dda-48b9-b089-f1b0632c9165.png)
+![Team Logo](https://user-images.githubusercontent.com/112448130/226374179-2dbadb95-d30b-4fb9-9635-ac43e40ed2ec.png)
+
 
 
 
