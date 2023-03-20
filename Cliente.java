@@ -1,10 +1,18 @@
+/**
+ *@authors :	Matias Calderon - Modelacion de clase		   
+ */
 package sprint;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Clase Cliente extiende de clase Usuario
+ */
 public class Cliente extends Usuario {
-	//Declaracion de variables, atributos de Usuario
+	
+	/** Declaracion de variables, atributos de Usuario */
 	private int rut;
 	private String nombres;
 	private String apellidos;
@@ -17,14 +25,29 @@ public class Cliente extends Usuario {
 	private List<Capacitacion> capas = new ArrayList<Capacitacion>();
 	private List<Accidente> acc = new ArrayList<Accidente>();
 	
-	//Constructor Cliente vacio
-	
+	/**
+	 * Constructor Cliente vacio
+	 */
 	public Cliente() {
 		
 	}
 	
-	// Constructor Cliente con datos
-	
+	/**
+	 * Constructor Cliente con datos
+	 *
+	 * @param uName
+	 * @param fNacimiento
+	 * @param run
+	 * @param rut
+	 * @param nombres
+	 * @param apellidos
+	 * @param telefono
+	 * @param afp
+	 * @param sds
+	 * @param direccion
+	 * @param comuna
+	 * @param edad
+	 */
 	public Cliente (String uName, String fNacimiento, int run, int rut, String nombres, String apellidos, int telefono, String afp, int sds, String direccion,
 			String comuna, int edad) {
 		super(uName, fNacimiento, run);
@@ -42,6 +65,8 @@ public class Cliente extends Usuario {
 
 	//Getter and Setter	
 	/**
+	 * Trae rut.
+	 *
 	 * @return the rut
 	 */
 	public int getRut() {
@@ -49,6 +74,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija rut.
+	 *
 	 * @param rut the rut to set
 	 */
 	public void setRut(int rut) {
@@ -56,6 +83,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae nombres.
+	 *
 	 * @return the nombres
 	 */
 	public String getNombres() {
@@ -63,6 +92,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija nombres.
+	 *
 	 * @param nombres the nombres to set
 	 */
 	public void setNombres(String nombres) {
@@ -70,6 +101,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae apellidos.
+	 *
 	 * @return the apellidos
 	 */
 	public String getApellidos() {
@@ -77,6 +110,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija apellidos.
+	 *
 	 * @param apellidos the apellidos to set
 	 */
 	public void setApellidos(String apellidos) {
@@ -84,6 +119,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae telefono.
+	 *
 	 * @return the telefono
 	 */
 	public int getTelefono() {
@@ -91,6 +128,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija telefono.
+	 *
 	 * @param telefono the telefono to set
 	 */
 	public void setTelefono(int telefono) {
@@ -98,6 +137,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae afp.
+	 *
 	 * @return the afp
 	 */
 	public String getAfp() {
@@ -105,6 +146,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija afp.
+	 *
 	 * @param afp the afp to set
 	 */
 	public void setAfp(String afp) {
@@ -112,6 +155,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae Sistema de Salud.
+	 *
 	 * @return the sds
 	 */
 	public int getSds() {
@@ -119,6 +164,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija Sistema de Salud.
+	 *
 	 * @param sds the sds to set
 	 */
 	public void setSds(int sds) {
@@ -126,6 +173,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae direccion.
+	 *
 	 * @return the direccion
 	 */
 	public String getDireccion() {
@@ -133,6 +182,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija direccion.
+	 *
 	 * @param direccion the direccion to set
 	 */
 	public void setDireccion(String direccion) {
@@ -140,6 +191,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae comuna.
+	 *
 	 * @return the comuna
 	 */
 	public String getComuna() {
@@ -147,6 +200,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija comuna.
+	 *
 	 * @param comuna the comuna to set
 	 */
 	public void setComuna(String comuna) {
@@ -154,6 +209,8 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Trae edad.
+	 *
 	 * @return the edad
 	 */
 	public int getEdad() {
@@ -161,38 +218,50 @@ public class Cliente extends Usuario {
 	}
 
 	/**
+	 * Fija edad.
+	 *
 	 * @param edad the edad to set
 	 */
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
 
-	public String sistSalud() {
-		if(sds == 1) {
-		return "fonasa";
-		
-	} else {
-		return "Isapre";
-	}
-	}
+	/**
+	 * Metodo sistSalud
+	 *
+	 * @return String con el Sistema de salud segun valor de sds
+	 */
 
+	/**
+	 * Metodo Analizar usuario que se deriva de Interfaz Asesoria.
+	 */
 	@Override
 	public void analizarUsuario() {
 		super.analizarUsuario();
 		System.out.println("\nDireccion: "+direccion+"\nComuna: "+comuna);
 	}
 
+	/**
+	 * Metodo toString de la clase Cliente
+	 *
+	 * @return string con datos de la clase
+	 */
 	@Override
 	public String toString() {
 		return "Rut Cliente: " + rut + "\nNombre Completo" + obtenerNombre() + 
 				"\nTelefono: " + telefono + 
 				"\n AFP: " + afp + 
-				"\nSistema de Salud: " + sds + 
+				"\nSistema de Salud: " + obtenerSistemaSalud() + 
 				"\nDireccion: " + direccion + 
 				"\nComuna: " + comuna + 
 				"\nEdad: " + edad;
 	}
 	
+	/**
+	 * Metodo Obtener Sistema de Salud.
+	 *
+	 * @return String con el Sistema de salud segun valor de sds
+	 */
 	public String obtenerSistemaSalud() {
 		if (sds == 1) {
 			return "Fonasa";
@@ -201,14 +270,29 @@ public class Cliente extends Usuario {
 		}
 	}
 	
+	/**
+	 * Metodo Obtener Nombre.
+	 *
+	 * @return String con concatenacion de nombre mas espacio y apellido
+	 */
 	public String obtenerNombre() {
 		return nombres+" "+apellidos;
 	}
 	
+	/**
+	 * Metodo Addcapa.
+	 *
+	 * @param Anade capacitacion c a la lista Capacitaciones
+	 */
 	public void addCapa(Capacitacion c) {
 		capas.add(c);
 	}
 
+	/**
+	 * Metodo addAcc.
+	 *
+	 * @param anade accidente a a la lista de Accidente
+	 */
 	public void addAcc(Accidente a) {
 		acc.add(a);
 	}

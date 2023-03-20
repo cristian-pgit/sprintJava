@@ -1,14 +1,26 @@
+/**
+ *@authors :	Cristian Carrillo.	   
+ */
 package sprint;
 
 import java.util.Scanner;
 
+/**
+ * Clase Principal es la que Trae el Menu y el ejecutable del programa
+ */
 public class Principal {
 	
+	/** Instanciacion del Scanner para llamarlo para elegir opcion en menu */
 	private static Scanner sc = new Scanner(System.in);
 	
 	
+	/**
+	 * Mtodo main
+	 *
+	 * @param Ejecutable
+	 */
 	public static void main (String[]Args) {
-		Contenedor cont = new Contenedor();
+		Contenedor cont = new Contenedor(); // Instanciacion de la clase Contenedor
 		boolean keepGoing = true;
 		while(keepGoing) {
 			try {
@@ -28,35 +40,41 @@ public class Principal {
 				switch (opc) {
 				
 				case 1:
-					//retornar cliente y asignar a acc
+					/** Crear Cliente*/
 					cont.crearCliente();
-					
 					break;
 				case 2:
+					/** Crear Profesional*/
 					cont.crearProfesional();
 					break;
 					
 				case 3:
+					/** Crear Administrativo*/
 					cont.crearAdministrativo();
 					break;
 					
 				case 4:
+					/** Crear Capacitacion*/
 					cont.crearCapacitacion();
-				
 					break;
 				case 5:
+					/** Eliminar Usuario*/
 					cont.eliminarUsuario();
 					break;
 				case 6:
+					/** Listar Usuarios*/
 					cont.mostrarUsuarios();
 					break;
 				case 7:
+					/** Listar Usuarios x Tipo*/
 					cont.listarXTipo();
 					break;
 				case 8:
+					/** Listar Capacitaciones*/
 					cont.listarCapacitaciones();
 					break;
 				case 9:
+					/** Opcion de Apagado de programa*/
 					Contenedor.escribir("Apagando sistema");
 					keepGoing = false;
 					break;
