@@ -294,13 +294,16 @@ public class Contenedor {
 	 */
 	public void listarCapacitaciones() {
 		int i = 1;
-		for (Capacitacion c:capas) {
+	    boolean hay = false;
+	    for (Capacitacion c:capas) {
 			System.out.println(ANSI_WHITE+"----------------- Capacitacion: "+i+" -----------------------"+ANSI_RESET);
 			c.mostrarDetalles();
 			i++;
 			System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
 		}
-		
+	    if (!hay) {
+	        escribir("No hay Capacitaciones inscritas");
+	    }
 	}
 	
 	/**
@@ -622,7 +625,7 @@ public class Contenedor {
 		while (!ssOk) {
 			escribir("Favor ingrese Sistema de Salud (1.- Fonasa / 2.- Isapre):");
 			String entrada = leer(sc);
-			if(!entrada.matches("[1-2]")) {
+			if(entrada.isEmpty() || !entrada.matches("[1-2]")) {
 				escribir("Solo 1 o 2");
 			} else {
 	            sds = Integer.parseInt(entrada);
@@ -807,7 +810,7 @@ public class Contenedor {
 		while(!diaOk) {
 			escribir("Ingrese Dia de la Capacitacion (dia de semana, ej Lunes):");
 			dia = leer(sc);
-			if (dia.equalsIgnoreCase("lunes") || 
+			if ( dia.equalsIgnoreCase("lunes") || 
 				    dia.equalsIgnoreCase("martes") || 
 				    dia.equalsIgnoreCase("miercoles") || 
 				    dia.equalsIgnoreCase("jueves") || 
@@ -836,7 +839,7 @@ public class Contenedor {
 		while(!hrOk) {
 			escribir("Ingrese Hora (de 00 a 23):");
 			hr = leer(sc);
-			if (!hr.matches("^([0-1][0-9]|2[0-3])$")) {
+			if (hr.isEmpty() ||!hr.matches("^([0-1][0-9]|2[0-3])$")) {
 				escribir("Debe ingresar desde 00 a 23");
 			} else {
 				hrOk = true;
@@ -857,7 +860,7 @@ public class Contenedor {
 	    while (!minOk) {
 	        escribir("Ingrese Minutos (de 00 a 59):");
 	        min = leer(sc);
-	        if (!min.matches("^([0-5][0-9]|00)$")) {
+	        if (min.isEmpty() || !min.matches("^([0-5][0-9]|00)$")) {
 	            escribir("Solo de 00 a 59");
 	        } else {
 	            minOk = true;
@@ -928,7 +931,7 @@ public class Contenedor {
 			escribir("Ingrese Cantidad de Asistentes:");
 			String casis = leer(sc);
 			int cant = Integer.parseInt(casis);
-			if (!casis.matches("^[0-9]+$")) {
+			if (casis == null || casis.isEmpty() || !casis.matches("^[0-9]+$")) {
 				escribir("Deben ser solo numeros");	
 			} else if (cant >999) {
 				escribir("Numero de asistentes no puede ser mayor a 999");
