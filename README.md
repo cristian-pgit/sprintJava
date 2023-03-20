@@ -41,7 +41,12 @@ nos permitió verificar cómo se ejecutaba el programa, buscando errores y depur
 Finalmente, documentamos el código utilizando Javadoc.
 
 ### Integrantes: 
-
+|Integrantes| git |
+|-----------|-----|
+|Cristian Carrillo|@cristian-pvgit|
+|Matias Calderon|@matcalderon|
+|Jorge Arancibia|@jorgearancibiaalejandro|
+|Adrian Fredes|@adrianfredes|
 - Cristian Carrillo @cristian-pvgit
 - Matias Calderon @matcalderon
 - Adrian Fredes @adrianfredes
