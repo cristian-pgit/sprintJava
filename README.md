@@ -17,6 +17,7 @@ Es necesario desarrollar una solución tecnológica que cubra los procesos de ne
 
 
 **DESARROLLO**
+
 En el desarrollo de la solución al problema, abordamos el proceso por etapas. En primer lugar, realizamos
 un análisis detallado de los requerimientos de la empresa y sus clientes. Documentamos los
 requerimientos de manera precisa para poder diseñar y desarrollar una solución que satisfaga sus
