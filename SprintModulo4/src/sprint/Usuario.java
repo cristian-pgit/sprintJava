@@ -124,9 +124,23 @@ public class Usuario implements Asesoria {
 	 */
 	@Override
 	public void analizarUsuario() {
-		System.out.println("Usuario: " + nUsuario + 
+		System.out.println("Usuario: " + nUsuario +
 				"\nRun: " + run );
 		
+	}
+
+	@Override
+	public void analizarUser() {
+		System.out.println("Usuario: " + nUsuario + 
+				"\nFecha de Nacimiento: " + fNacimiento+
+				"\nRun: " + run );
+	}
+	
+	@Override
+	public void analizarUserT() {
+		System.out.println("Usuario: " + nUsuario + 
+				"\nFecha de Nacimiento: " + fNacimiento+
+				"\nRun: " + run );
 	}
 	
 }

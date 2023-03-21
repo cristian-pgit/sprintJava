@@ -261,6 +261,17 @@ public class Cliente extends Usuario {
 		return obtenerNombre()+ ", Rut Cliente: " + rut;
 	}
 	
+	@Override
+	public void analizarUserT() {
+		System.out.println("Rut Cliente: " + rut + "\nNombre Completo: " + obtenerNombre() + 
+				"\nTelefono: " + telefono + 
+				"\n AFP: " + afp + 
+				"\nSistema de Salud: " + obtenerSistemaSalud() + 
+				"\nDireccion: " + direccion + 
+				"\nComuna: " + comuna + 
+				"\nEdad: " + edad);
+	}
+	
 	/**
 	 * Metodo Obtener Sistema de Salud.
 	 *

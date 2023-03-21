@@ -24,12 +24,11 @@ public class Principal {
 		boolean keepGoing = true;
 		while(keepGoing) {
 			try {
-				Contenedor.escribir("Bienvenido al Sistema de Prevencion de Riesgos "+Contenedor.ANSI_YELLOW+
-						"<<Piker Dans Les Youx>>"+Contenedor.ANSI_RESET+"\n"+"Elija una opcion:\n"+
+				Contenedor.escribir("Bienvenido al Sistema de Prevencion de Riesgos "+cont.tAma("<<Piker Dans Les Youx>>")+"\nElija una opcion:\n"+
 			"\t1.- Crear Cliente\n"+ "\t2.- Crear Profesional\n"+"\t3.- Crear Administrativo\n"+
 						"\t4.- Crear Capacitaciones\n"+
 						"\t5.- Eliminar Usuario\n"+"\t6.- Listar Usuarios\n"+"\t7.- Listar Usuarios por Tipo\n"+
-			"\t8.- Listar Capacitaciones\n"+"\t9. Salir");
+			"\t8.- Listar Capacitaciones\n"+"\t9.- Salir");
 				String opcion = "";
 				opcion = sc.nextLine();
 				if(!opcion.matches("[1-9]")) {
@@ -75,7 +74,7 @@ public class Principal {
 					break;
 				case 9:
 					/** Opcion de Apagado de programa*/
-					Contenedor.escribir("Apagando sistema");
+					Contenedor.escribir(cont.tAma("Apagando sistema"));
 					keepGoing = false;
 					break;
 					

@@ -95,5 +95,11 @@ public class Administrativo extends Usuario {
 	}
 	
 	
+	@Override
+	public void analizarUserT() {
+		System.out.println("Area: "+area+
+				"\nAnios de Experiencia Previa: "+experiencia);
+	}
+	
 	
 }

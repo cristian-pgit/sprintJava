@@ -115,7 +115,7 @@ public class Contenedor {
 	 */
 	public void crearAdministrativo() {
 		Administrativo adm = new Administrativo();
-		escribir("Bienvenido a la Creacion de Usuario - Cliente.");
+		escribir("Bienvenido a la Creacion de Usuario - Administrativo.");
 		String userN = pedirUserName();
 		adm.setUsuario(userN);
 		String fecha = fechaN();
@@ -209,10 +209,10 @@ public class Contenedor {
 	public void mostrarUsuarios() {
 		int i = 1;
 		for (Asesoria a:ase) {
-			System.out.println(ANSI_WHITE+"----------------- Usuario: "+i+" -----------------------"+ANSI_RESET);
-			a.analizarUsuario();
-			i++;
-			System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
+				 System.out.println(ANSI_WHITE+"----------------- Usuario: "+i+" -----------------------"+ANSI_RESET);
+				 a.analizarUser();
+				 i++;
+				 System.out.println(ANSI_PURPLE+"----------------------------------------------------"+ANSI_RESET);
 		}
 	}
 	
@@ -242,7 +242,7 @@ public class Contenedor {
 				    for (Asesoria a : ase) {
 				        if (a instanceof Cliente) {
 				            System.out.println(ANSI_WHITE + "----------------- Cliente: " + i + " -----------------------" + ANSI_RESET);
-				            a.analizarUsuario();
+				            a.analizarUserT();
 				            i++;
 				            System.out.println(ANSI_PURPLE + "----------------------------------------------------" + ANSI_RESET);
 				            hay = true;
@@ -259,7 +259,7 @@ public class Contenedor {
 				    for (Asesoria a : ase) {
 				        if (a instanceof Profesional) {
 				            System.out.println(ANSI_WHITE + "----------------- Profesional: " + i + " -----------------------" + ANSI_RESET);
-				            a.analizarUsuario();
+				            a.analizarUserT();
 				            i++;
 				            System.out.println(ANSI_PURPLE + "----------------------------------------------------" + ANSI_RESET);
 				            hay = true;
@@ -276,7 +276,7 @@ public class Contenedor {
 				    for (Asesoria a : ase) {
 				        if (a instanceof Administrativo) {
 				            System.out.println(ANSI_WHITE + "----------------- Administrativo: " + i + " -----------------------" + ANSI_RESET);
-				            a.analizarUsuario();
+				            a.analizarUserT();
 				            i++;
 				            System.out.println(ANSI_PURPLE + "----------------------------------------------------" + ANSI_RESET);
 				            hay = true;
