@@ -46,6 +46,7 @@ nos permitió verificar cómo se ejecutaba el programa, buscando errores y depur
 Finalmente, documentamos el código utilizando Javadoc.</p>
 
 ### Integrantes: 
+- invitado de piedra Adrian
 |Integrantes| git |
 |-----------|-----|
 |Cristian Carrillo|@cristian-pvgit|
